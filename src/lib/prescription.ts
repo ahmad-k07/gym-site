@@ -1,4 +1,4 @@
-export const SITE_NAME = "Gym Site";
+export const SITE_NAME = "Training Guide";
 
 /** The same structure is used for every exercise on the site. */
 export const prescription = [

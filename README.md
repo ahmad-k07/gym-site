@@ -1,4 +1,4 @@
-# Gym Site
+# Training Guide
 
 A simple, calm website that tells you what to do in the gym. Search for a muscle, pick the area you want to focus on, and get exercises with a demo, sets, reps and rest.
 
