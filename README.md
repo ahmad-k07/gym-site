@@ -2,7 +2,7 @@
 
 A simple, calm website that tells you what to do in the gym. Search for a muscle, pick the area you want to focus on, and get exercises with a demo, sets, reps and rest.
 
-> Status: v1 built and running locally. Not deployed yet.
+> Live at **https://trainingguide.vercel.app**. Every push to `main` redeploys automatically.
 
 ## How it works
 
@@ -53,7 +53,7 @@ Then open http://localhost:3000. `npm run build` makes a production build, and `
 - Plain CSS with CSS Modules; design tokens in `src/app/globals.css`
 - Exercise data in local typed files, with no database. Every page is generated at build time.
 - Exercise images from [free-exercise-db](https://github.com/yuhonas/free-exercise-db) (public domain), stored in `public/exercises/`
-- Hosting planned on Vercel
+- Hosted on Vercel (Hobby plan, free)
 
 ## Project structure
 
@@ -83,7 +83,7 @@ To change which exercises appear for a muscle, edit `exerciseIds` in `src/data/m
 - [x] Exercise data for 8 muscle groups (60 exercises)
 - [x] Search with synonyms, section picker, workout pages with warm-ups, split finder
 - [x] Responsive layout, dark mode (lime accent), condensed display headings, keyboard-accessible search
-- [ ] Deploy to Vercel
+- [x] Deploy to Vercel
 - [ ] Optional: custom domain
 - [ ] v2: Accounts and progression tracking
 
