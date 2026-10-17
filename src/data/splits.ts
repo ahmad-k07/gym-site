@@ -20,8 +20,6 @@ const chest = { label: "Chest", href: "/train/chest" };
 const back = { label: "Upper and mid back", href: "/train/back/upper-back" };
 const lowerBack = { label: "Lower back", href: "/train/back/lower-back" };
 const shoulders = { label: "Shoulders", href: "/train/shoulders" };
-const frontDelts = { label: "Front delts", href: "/train/shoulders/front" };
-const sideDelts = { label: "Side delts", href: "/train/shoulders/side" };
 const rearDelts = { label: "Rear delts", href: "/train/shoulders/rear" };
 const biceps = { label: "Biceps", href: "/train/biceps" };
 const triceps = { label: "Triceps", href: "/train/triceps" };
@@ -51,7 +49,7 @@ const lower: DayTemplate = {
 const anterior: DayTemplate = {
   name: "Anterior (front)",
   short: "Front",
-  targets: [chest, frontDelts, sideDelts, quads, biceps, abs],
+  targets: [chest, shoulders, quads, biceps, abs],
 };
 const posterior: DayTemplate = {
   name: "Posterior (back)",
@@ -61,7 +59,7 @@ const posterior: DayTemplate = {
 const push: DayTemplate = {
   name: "Push",
   short: "Push",
-  targets: [chest, triceps, frontDelts, sideDelts],
+  targets: [chest, triceps, shoulders],
 };
 const pull: DayTemplate = {
   name: "Pull",
