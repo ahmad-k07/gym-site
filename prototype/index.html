@@ -8,6 +8,8 @@
     <!-- Makes the page scale properly on phones instead of showing a zoomed-out desktop page. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gym Site</title>
+    <!-- Links the stylesheet. HTML says what things ARE; CSS says how they LOOK. -->
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <!-- <body>: everything the user actually sees. -->
@@ -19,20 +21,23 @@
 
     <main>
       <h1>What do you want to train?</h1>
-      <p>Search for a muscle and we'll give you exercises, sets, reps and rest.</p>
+      <p class="lead">Search for a muscle and we'll give you exercises, sets, reps and rest.</p>
 
       <!-- A form groups inputs together. Pressing Enter in the box "submits" it. -->
       <form>
         <!-- for="search" links this label to the input with id="search".
              Clicking the label focuses the box, and screen readers read it aloud. -->
-        <label for="search">Muscle</label>
-        <input type="search" id="search" name="q" placeholder="e.g. chest, lats, quads">
-        <button type="submit">Search</button>
+        <!-- The label is hidden visually (the heading already explains the box) but screen readers still use it. -->
+        <label for="search" class="visually-hidden">Muscle</label>
+        <div class="search-row">
+          <input type="search" id="search" name="q" placeholder="e.g. chest, lats, quads">
+          <button type="submit">Search</button>
+        </div>
       </form>
 
       <section>
         <h2>Muscle groups</h2>
-        <ul>
+        <ul class="muscle-grid">
           <li>Chest</li>
           <li>Back</li>
           <li>Shoulders</li>
