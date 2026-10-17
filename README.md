@@ -39,7 +39,7 @@ Equipment assumes a full gym.
 
 ## Learn section
 
-Short articles on progressive overload, hypertrophy, calorie deficits, cutting and bulking.
+Short on-site explanations (a few sentences each, no external links) of progressive overload, hypertrophy, calorie deficits, cutting and bulking.
 
 ## Planned stack
 
