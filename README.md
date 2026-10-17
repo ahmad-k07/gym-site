@@ -27,16 +27,16 @@ Equipment assumes a full gym.
 
 ## Muscle groups
 
-| Group | Sections |
+| Group | What to pick |
 |---|---|
-| Chest | Upper · Whole |
-| Back | Upper and mid back · Lower back |
-| Shoulders | Front · Side · Rear |
-| Biceps | Curls (pick one) |
-| Triceps | One section: all movements hit all three heads |
-| Legs | Quads · Hamstrings · Glutes · Calves |
-| Abs | Abs · Obliques |
-| Forearms | Hammer curls, reverse curls, cable wrist curls |
+| Chest | 1 upper chest + 1 whole/flat movement (2 total) |
+| Back | Upper and mid back: 1 upper row + 1 close-grip row + 1 lat movement. Lower back: SLDL |
+| Shoulders | 1 press (front delts) + 1 lateral raise (side delts). Rear delts optional if you do an upper row |
+| Biceps | 1 curl |
+| Triceps | 1 of JM press, dips or overhead extension + 1 pushdown |
+| Legs | Quads: squat or leg press + leg extension. Hamstrings: 1 leg curl. Glutes: hip thrust or abductor. Calves: 1 |
+| Abs | 1 abs + 1 obliques |
+| Forearms | Hammer or reverse curl; wrist curls optional |
 
 ## Running it
 
@@ -80,7 +80,7 @@ To change which exercises appear for a muscle, edit `exerciseIds` in `src/data/m
 
 - [x] HTML/CSS prototype (in git history)
 - [x] Next.js + TypeScript app
-- [x] Exercise data for 8 muscle groups (68 exercises)
+- [x] Exercise data for 8 muscle groups (62 exercises)
 - [x] Search with synonyms, section picker, workout pages with warm-ups, split finder
 - [x] Responsive layout, dark mode, keyboard-accessible search
 - [ ] Deploy to Vercel

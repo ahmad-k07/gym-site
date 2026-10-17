@@ -56,7 +56,9 @@
 }
 
 .name {
+  margin: 0 0 var(--space-2);
   font-size: 1.1875rem;
+  line-height: 1.2;
 }
 
 .variations {

@@ -34,7 +34,7 @@ const abs = { label: "Abs", href: "/train/abs" };
 const fullBody: DayTemplate = {
   name: "Full body",
   short: "Full",
-  targets: [chest, back, shoulders, quads, hamstrings, biceps, triceps],
+  targets: [chest, back, shoulders, quads, hamstrings, biceps, triceps, abs],
 };
 const upper: DayTemplate = {
   name: "Upper",

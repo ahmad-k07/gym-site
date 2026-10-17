@@ -14,12 +14,16 @@ const equipmentLabel: Record<Exercise["equipment"], string> = {
 export function ExerciseCard({
   exercise,
   priority = false,
+  headingLevel = 3,
 }: {
   exercise: Exercise;
+  /** 4 when the card sits under a group heading, so the page outline stays correct. */
+  headingLevel?: 3 | 4;
   /** Load the image straight away instead of lazily (for the first card, which is visible on load). */
   priority?: boolean;
 }) {
   const src = `/exercises/${exercise.imageId}`;
+  const Heading = headingLevel === 4 ? "h4" : "h3";
   return (
     <article className={styles.card}>
       {/* Two photos (start and end position) that swap back and forth, like a GIF. */}
@@ -45,7 +49,7 @@ export function ExerciseCard({
         <p className={styles.meta}>
           {equipmentLabel[exercise.equipment]} · {exercise.mechanic === "compound" ? "Compound" : "Isolation"}
         </p>
-        <h3 className={styles.name}>{exercise.name}</h3>
+        <Heading className={styles.name}>{exercise.name}</Heading>
         {exercise.variations && (
           <p className={styles.variations}>
             <strong>Options:</strong> {exercise.variations}

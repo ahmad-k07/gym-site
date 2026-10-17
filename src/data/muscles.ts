@@ -12,10 +12,21 @@ export type Region = {
   blurb: string;
   /** Extra words people might search for, e.g. "upper pecs". */
   synonyms: string[];
-  /** How many of the listed exercises to pick for a session. Shown as "Pick X of these". */
-  pick?: number;
+  /** Extra advice for this section only, e.g. that it's optional. */
+  note?: string;
   /** Overrides the group's warm-up when this region needs different moves. */
   warmUp?: WarmUpMove[];
+  /** The exercises, in one or more groups, e.g. "one upper row" + "one lat movement". */
+  slots: ExerciseSlot[];
+};
+
+export type ExerciseSlot = {
+  /** Heading for the group. Only needed when a section has more than one group. */
+  label?: string;
+  /** How many exercises to pick from this group. */
+  pick: number;
+  /** Optional groups don't count towards the section's total. */
+  optional?: boolean;
   exerciseIds: string[];
 };
 
@@ -36,7 +47,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "chest",
     name: "Chest",
     synonyms: ["pecs", "pec", "pectorals"],
-    tip: "Doing one flat movement (e.g. bench press or pec deck) and one upper chest movement (e.g. incline Smith press) is highly recommended.",
+    tip: "Do one upper chest movement (e.g. incline Smith press) and one flat movement (e.g. bench press or pec deck). Two chest exercises in total is enough.",
     warmUp: [
       { name: "Arm circles", dose: "10 forwards, 10 backwards", how: "Arms straight out to the sides, making big slow circles." },
       { name: "Cross-body arm swings", dose: "10 swings", how: "Swing your arms open wide, then across your chest, hugging yourself." },
@@ -49,11 +60,8 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Upper chest",
         blurb: "The top of the chest near the collarbone, trained by pressing and flying at an incline.",
         synonyms: ["upper pecs", "clavicular", "incline"],
-        exerciseIds: [
-          "smith-incline-press",
-          "barbell-incline-bench-press",
-          "incline-dumbbell-press",
-          "low-to-high-cable-fly",
+        slots: [
+          { pick: 1, exerciseIds: ["smith-incline-press", "barbell-incline-bench-press", "incline-dumbbell-press", "low-to-high-cable-fly"] },
         ],
       },
       {
@@ -61,7 +69,9 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Whole chest",
         blurb: "Flat pressing and flys that work the whole chest.",
         synonyms: ["flat", "mid chest", "middle chest", "flat bench"],
-        exerciseIds: ["barbell-bench-press", "smith-bench-press", "chest-dip", "pec-deck"],
+        slots: [
+          { pick: 1, exerciseIds: ["barbell-bench-press", "smith-bench-press", "chest-dip", "pec-deck"] },
+        ],
       },
     ],
   },
@@ -69,6 +79,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "back",
     name: "Back",
     synonyms: [],
+    tip: "Three movements are enough: an upper row for your rear delts and traps, a close-grip row for your mid back, and a lat pulldown or pull-up for your lats.",
     warmUp: [
       { name: "Cat-cow", dose: "8 slow reps", how: "On hands and knees, round your back up, then let it sag down." },
       { name: "Band pull-aparts", dose: "15 reps", how: "Hold a light band at chest height and pull it apart to your chest." },
@@ -78,9 +89,13 @@ export const muscleGroups: MuscleGroup[] = [
       {
         slug: "upper-back",
         name: "Upper and mid back",
-        blurb: "The traps, rhomboids and muscles between your shoulder blades, trained by rowing.",
-        synonyms: ["upper back", "mid back", "middle back", "rhomboids", "traps", "back thickness", "rows"],
-        exerciseIds: ["barbell-row", "t-bar-row", "seated-cable-row", "one-arm-dumbbell-row"],
+        blurb: "Your traps, rear delts, mid back and lats, trained by rowing and pulling down.",
+        synonyms: ["upper back", "mid back", "middle back", "rhomboids", "traps", "back thickness", "rows", "lats", "lat", "pulldown", "pull ups"],
+        slots: [
+          { label: "Upper row: rear delts and traps", pick: 1, exerciseIds: ["cable-upper-row", "wide-grip-barbell-row"] },
+          { label: "Close-grip row: mid back", pick: 1, exerciseIds: ["seated-cable-row", "t-bar-row", "one-arm-dumbbell-row"] },
+          { label: "Lats", pick: 1, exerciseIds: ["lat-pulldown", "pull-up"] },
+        ],
       },
       {
         slug: "lower-back",
@@ -92,7 +107,9 @@ export const muscleGroups: MuscleGroup[] = [
           { name: "Glute bridges", dose: "12 reps", how: "Lying on your back, drive your hips up and squeeze your glutes." },
           { name: "Bodyweight good mornings", dose: "10 reps", how: "Hands on your head, push your hips back with a flat back, then stand up." },
         ],
-        exerciseIds: ["deadlift", "good-morning", "back-extension", "reverse-hyperextension"],
+        slots: [
+          { pick: 1, exerciseIds: ["stiff-leg-deadlift"] },
+        ],
       },
     ],
   },
@@ -100,6 +117,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "shoulders",
     name: "Shoulders",
     synonyms: ["shoulder", "delts", "deltoids"],
+    tip: "Do a shoulder press for your front delts and a lateral raise for your side delts. Short on time? Lateral raises alone are fine, on a cable with a wrist cuff, a machine or dumbbells, because pressing already hits your front and side delts.",
     warmUp: [
       { name: "Arm circles", dose: "10 forwards, 10 backwards", how: "Start small and make the circles bigger each rep." },
       { name: "Band dislocates", dose: "10 reps", how: "Hold a band wide with straight arms and move it over your head and behind you." },
@@ -111,11 +129,8 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Front delts",
         blurb: "The front of the shoulder, trained by pressing overhead.",
         synonyms: ["front delt", "front shoulders", "anterior delts"],
-        exerciseIds: [
-          "overhead-press",
-          "dumbbell-shoulder-press",
-          "machine-shoulder-press",
-          "cable-front-raise",
+        slots: [
+          { pick: 1, exerciseIds: ["overhead-press", "dumbbell-shoulder-press", "machine-shoulder-press"] },
         ],
       },
       {
@@ -123,18 +138,18 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Side delts",
         blurb: "The outside of the shoulder that makes your shoulders look wider.",
         synonyms: ["side delt", "lateral delts", "medial delts", "side shoulders"],
-        exerciseIds: ["upright-row", "lateral-raise", "seated-lateral-raise", "incline-lateral-raise"],
+        slots: [
+          { pick: 1, exerciseIds: ["lateral-raise", "seated-lateral-raise", "incline-lateral-raise"] },
+        ],
       },
       {
         slug: "rear",
         name: "Rear delts",
         blurb: "The back of the shoulder, often undertrained and good for posture.",
         synonyms: ["rear delt", "posterior delts", "rear shoulders"],
-        exerciseIds: [
-          "face-pull",
-          "reverse-pec-deck",
-          "cable-rear-delt-fly",
-          "bent-over-rear-delt-raise",
+        note: "Rear delts are optional. You can skip them if you already do an upper row on your back day.",
+        slots: [
+          { pick: 1, optional: true, exerciseIds: ["face-pull", "reverse-pec-deck", "cable-rear-delt-fly", "bent-over-rear-delt-raise"] },
         ],
       },
     ],
@@ -155,14 +170,8 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Curls",
         blurb: "The front of the upper arm, trained by curling.",
         synonyms: [],
-        pick: 1,
-        exerciseIds: [
-          "barbell-curl",
-          "ez-bar-curl",
-          "dumbbell-curl",
-          "incline-dumbbell-curl",
-          "preacher-curl",
-          "cable-curl",
+        slots: [
+          { pick: 1, exerciseIds: ["barbell-curl", "ez-bar-curl", "dumbbell-curl", "incline-dumbbell-curl", "preacher-curl", "cable-curl"] },
         ],
       },
     ],
@@ -171,7 +180,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "triceps",
     name: "Triceps",
     synonyms: ["tricep", "tris", "arms"],
-    tip: "All triceps movements hit all three heads, so you don't need a separate exercise for each.",
+    tip: "All triceps movements hit all three heads, so you don't need a separate exercise for each. Two exercises is enough: one press or extension, plus a pushdown.",
     warmUp: [
       { name: "Arm circles", dose: "10 each way", how: "Big slow circles to loosen the shoulders." },
       { name: "Overhead triceps stretch", dose: "15 seconds each arm", how: "Reach one hand down your back and gently push the elbow with the other hand." },
@@ -183,12 +192,9 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Triceps",
         blurb: "Pressing and extensions for the back of the arm.",
         synonyms: [],
-        exerciseIds: [
-          "single-arm-pushdown",
-          "overhead-cable-extension",
-          "rope-pushdown",
-          "jm-press",
-          "triceps-dip",
+        slots: [
+          { label: "JM press, dips or overhead extension", pick: 1, exerciseIds: ["jm-press", "triceps-dip", "overhead-cable-extension"] },
+          { label: "Pushdown", pick: 1, exerciseIds: ["rope-pushdown", "single-arm-pushdown"] },
         ],
       },
     ],
@@ -197,6 +203,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "legs",
     name: "Legs",
     synonyms: ["leg", "lower body", "leg day"],
+    tip: "Make sure you hit legs twice a week, and train abs on your leg days.",
     warmUp: [
       { name: "Leg swings", dose: "10 each leg, front-to-back and side-to-side", how: "Hold on to something and swing each leg loosely." },
       { name: "Bodyweight squats", dose: "10 reps", how: "Slow, deep squats with your chest up." },
@@ -208,36 +215,38 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Quads",
         blurb: "The front of the thighs, trained by squatting and straightening the knee.",
         synonyms: ["quad", "quadriceps", "thighs", "front of thighs"],
-        exerciseIds: ["barbell-squat", "leg-press", "hack-squat", "leg-extension"],
+        slots: [
+          { label: "Squat or leg press", pick: 1, exerciseIds: ["barbell-squat", "leg-press", "hack-squat"] },
+          { label: "Leg extension", pick: 1, exerciseIds: ["leg-extension"] },
+        ],
       },
       {
         slug: "hamstrings",
         name: "Hamstrings",
-        blurb: "The back of the thighs, trained by hip hinges and leg curls.",
+        blurb: "The back of the thighs, trained by curling your heels towards your glutes.",
         synonyms: ["hamstring", "hammies", "hams", "back of thighs"],
         warmUp: [
           { name: "Leg swings", dose: "10 each leg", how: "Hold on to something and swing each leg front-to-back." },
           { name: "Inchworms", dose: "5 reps", how: "From standing, walk your hands out to a push-up position, then walk them back." },
           { name: "Bodyweight good mornings", dose: "10 reps", how: "Hands on your head, push your hips back with a flat back, then stand up." },
         ],
-        exerciseIds: [
-          "romanian-deadlift",
-          "dumbbell-stiff-leg-deadlift",
-          "lying-leg-curl",
-          "seated-leg-curl",
+        slots: [
+          { pick: 1, exerciseIds: ["seated-leg-curl", "lying-leg-curl"] },
         ],
       },
       {
         slug: "glutes",
         name: "Glutes",
-        blurb: "The muscles of the hips and bum, trained by driving your hips forward.",
+        blurb: "The muscles of the hips and bum, trained by driving your hips forward or pushing your legs out.",
         synonyms: ["glute", "bum", "butt", "booty", "hips"],
         warmUp: [
           { name: "Glute bridges", dose: "12 reps", how: "Lying on your back, drive your hips up and squeeze your glutes." },
           { name: "Leg swings", dose: "10 each leg, side-to-side", how: "Hold on to something and swing each leg across your body." },
           { name: "Bodyweight squats", dose: "10 reps", how: "Slow, deep squats with your chest up." },
         ],
-        exerciseIds: ["hip-thrust", "bulgarian-split-squat", "cable-pull-through", "cable-kickback"],
+        slots: [
+          { pick: 1, exerciseIds: ["hip-thrust", "hip-abductor"] },
+        ],
       },
       {
         slug: "calves",
@@ -248,11 +257,8 @@ export const muscleGroups: MuscleGroup[] = [
           { name: "Ankle circles", dose: "10 each way, each foot", how: "Lift one foot and draw slow circles with your toes." },
           { name: "Bodyweight calf raises", dose: "15 reps", how: "On a step, rise up and lower your heels into a full stretch." },
         ],
-        exerciseIds: [
-          "standing-calf-raise",
-          "seated-calf-raise",
-          "leg-press-calf-raise",
-          "smith-calf-raise",
+        slots: [
+          { pick: 1, exerciseIds: ["standing-calf-raise", "seated-calf-raise", "leg-press-calf-raise", "smith-calf-raise"] },
         ],
       },
     ],
@@ -261,6 +267,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "abs",
     name: "Abs",
     synonyms: ["abdominals", "core", "stomach", "six pack", "ab"],
+    tip: "One exercise for abs and one for obliques is enough. You won't see abs if your diet isn't sorted, no matter how much you train them.",
     warmUp: [
       { name: "Cat-cow", dose: "8 slow reps", how: "On hands and knees, round your back up, then let it sag down." },
       { name: "Dead bugs", dose: "8 each side", how: "On your back, lower the opposite arm and leg while keeping your lower back pressed down." },
@@ -272,12 +279,8 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Abs",
         blurb: "The front of your stomach, trained by crunching and raising your legs.",
         synonyms: ["upper abs", "lower abs", "crunches"],
-        exerciseIds: [
-          "cable-crunch",
-          "ab-crunch-machine",
-          "hanging-leg-raise",
-          "captains-chair-knee-raise",
-          "reverse-crunch",
+        slots: [
+          { pick: 1, exerciseIds: ["cable-crunch", "ab-crunch-machine", "hanging-leg-raise", "captains-chair-knee-raise", "reverse-crunch"] },
         ],
       },
       {
@@ -285,7 +288,9 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Obliques",
         blurb: "The sides of your waist, trained by twisting, bending sideways and resisting rotation.",
         synonyms: ["oblique", "side abs", "love handles", "waist"],
-        exerciseIds: ["cable-woodchop", "pallof-press", "dumbbell-side-bend", "oblique-crunch"],
+        slots: [
+          { pick: 1, exerciseIds: ["cable-woodchop", "pallof-press", "dumbbell-side-bend", "oblique-crunch"] },
+        ],
       },
     ],
   },
@@ -293,6 +298,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "forearms",
     name: "Forearms",
     synonyms: ["forearm", "grip", "wrists", "wrist"],
+    tip: "It's fine not to train forearms directly, because almost everything works them. If you want to, a hammer curl or reverse curl is enough.",
     warmUp: [
       { name: "Wrist circles", dose: "10 each way", how: "Make slow circles with both fists." },
       { name: "Wrist flexor and extensor stretch", dose: "15 seconds each way", how: "Arm straight out, gently pull your fingers back, then push the back of your hand down." },
@@ -302,9 +308,12 @@ export const muscleGroups: MuscleGroup[] = [
       {
         slug: "forearms",
         name: "Forearms",
-        blurb: "Hammer curls, reverse curls and wrist curls to cover the whole forearm.",
+        blurb: "The muscles between your elbow and wrist, used for grip.",
         synonyms: [],
-        exerciseIds: ["hammer-curl", "reverse-curl", "cable-wrist-curl", "reverse-wrist-curl"],
+        slots: [
+          { label: "Hammer or reverse curl", pick: 1, exerciseIds: ["hammer-curl", "reverse-curl"] },
+          { label: "Wrist curls", pick: 1, optional: true, exerciseIds: ["cable-wrist-curl", "reverse-wrist-curl"] },
+        ],
       },
     ],
   },

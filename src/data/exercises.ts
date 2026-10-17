@@ -126,15 +126,28 @@ const exerciseList: Exercise[] = [
 
   // Back
   {
-    id: "barbell-row",
-    name: "Barbell row",
-    imageId: "Bent_Over_Barbell_Row",
+    id: "cable-upper-row",
+    name: "Cable upper row",
+    imageId: "Cable_Rope_Rear-Delt_Rows",
+    equipment: "cable",
+    mechanic: "compound",
+    cues: [
+      "Attach a rope to a cable at chest height, overhand grip.",
+      "Pull towards your upper chest or neck with your elbows flared out wide.",
+      "Squeeze your shoulder blades together and feel your rear delts and traps work.",
+    ],
+    variations: "Standing (shown) or seated at a low cable row",
+  },
+  {
+    id: "wide-grip-barbell-row",
+    name: "Wide-grip barbell row",
+    imageId: "Barbell_Rear_Delt_Row",
     equipment: "barbell",
     mechanic: "compound",
     cues: [
+      "Grip the bar wider than your shoulders, palms facing you.",
       "Hinge forward until your torso is close to parallel with the floor.",
-      "Pull the bar to your lower ribs.",
-      "Keep your back flat; don't jerk the weight up.",
+      "Row the bar to your upper chest with your elbows out wide.",
     ],
   },
   {
@@ -172,6 +185,31 @@ const exerciseList: Exercise[] = [
       "Pull the dumbbell towards your hip.",
       "Keep your torso still; don't twist to lift the weight.",
     ],
+  },
+  {
+    id: "lat-pulldown",
+    name: "Lat pulldown",
+    imageId: "Wide-Grip_Lat_Pulldown",
+    equipment: "cable",
+    mechanic: "compound",
+    cues: [
+      "Grip the bar a little wider than your shoulders.",
+      "Pull it to your upper chest, driving your elbows down towards your hips.",
+      "Let your arms fully straighten at the top to stretch the lats.",
+    ],
+  },
+  {
+    id: "pull-up",
+    name: "Pull-up",
+    imageId: "Pullups",
+    equipment: "bodyweight",
+    mechanic: "compound",
+    cues: [
+      "Grip just wider than your shoulders.",
+      "Drive your elbows down towards your hips until your chin clears the bar.",
+      "Lower all the way to a full hang each rep.",
+    ],
+    variations: "Use the assisted machine if you can't do 6 reps yet. Add weight with a dip belt once 10 is easy.",
   },
 
   // Shoulders
@@ -212,42 +250,18 @@ const exerciseList: Exercise[] = [
     ],
   },
   {
-    id: "cable-front-raise",
-    name: "Cable front raise",
-    imageId: "Front_Cable_Raise",
+    id: "lateral-raise",
+    name: "Lateral raise",
+    imageId: "Side_Lateral_Raise",
     equipment: "cable",
     mechanic: "isolation",
     cues: [
-      "Stand facing away from a low pulley.",
-      "Raise the handle in front of you to shoulder height.",
-      "Lower slowly; don't swing your body.",
-    ],
-    altReps: HIGH_REPS,
-  },
-  {
-    id: "upright-row",
-    name: "Upright row",
-    imageId: "Upright_Barbell_Row",
-    equipment: "barbell",
-    mechanic: "compound",
-    cues: [
-      "Grip the bar at shoulder width or a little wider.",
-      "Pull it up, leading with your elbows.",
-      "Stop at lower-chest height to keep your shoulders comfortable.",
-    ],
-  },
-  {
-    id: "lateral-raise",
-    name: "Dumbbell lateral raise",
-    imageId: "Side_Lateral_Raise",
-    equipment: "dumbbell",
-    mechanic: "isolation",
-    cues: [
-      "Raise the dumbbells out to your sides until your arms are level with your shoulders.",
+      "Raise your arm out to the side until it's level with your shoulder.",
       "Lead with your elbows, keeping a slight bend in them.",
       "Use a weight you can lift without swinging.",
     ],
     altReps: HIGH_REPS,
+    variations: "Cable with a wrist cuff, machine, or dumbbells (shown)",
   },
   {
     id: "seated-lateral-raise",
@@ -542,28 +556,17 @@ const exerciseList: Exercise[] = [
     ],
   },
   {
-    id: "romanian-deadlift",
-    name: "Romanian deadlift",
-    imageId: "Romanian_Deadlift",
+    id: "stiff-leg-deadlift",
+    name: "Stiff-legged deadlift (SLDL)",
+    imageId: "Stiff-Legged_Barbell_Deadlift",
     equipment: "barbell",
     mechanic: "compound",
     cues: [
-      "Start standing with the bar at your thighs.",
-      "Push your hips back, keeping the bar close and your back flat.",
-      "Go down until you feel a strong hamstring stretch, then stand back up.",
+      "Stand holding the bar with a soft bend in your knees.",
+      "Push your hips back and lower the bar down your legs, keeping your back flat.",
+      "Go down until you feel a strong stretch, then stand back up by squeezing your glutes.",
     ],
-  },
-  {
-    id: "dumbbell-stiff-leg-deadlift",
-    name: "Dumbbell stiff-legged deadlift",
-    imageId: "Stiff-Legged_Dumbbell_Deadlift",
-    equipment: "dumbbell",
-    mechanic: "compound",
-    cues: [
-      "Hold the dumbbells in front of your thighs with a soft bend in your knees.",
-      "Hinge at the hips and lower the dumbbells down your legs.",
-      "Keep your back flat and stand up by squeezing your glutes.",
-    ],
+    variations: "Barbell or dumbbells",
   },
   {
     id: "lying-leg-curl",
@@ -602,39 +605,15 @@ const exerciseList: Exercise[] = [
     ],
   },
   {
-    id: "bulgarian-split-squat",
-    name: "Bulgarian split squat",
-    imageId: "Split_Squat_with_Dumbbells",
-    equipment: "dumbbell",
-    mechanic: "compound",
-    cues: [
-      "Rest your back foot on a bench, holding a dumbbell in each hand.",
-      "Lower your back knee towards the floor.",
-      "Lean forward slightly to put more work on your glutes.",
-    ],
-  },
-  {
-    id: "cable-pull-through",
-    name: "Cable pull-through",
-    imageId: "Pull_Through",
-    equipment: "cable",
-    mechanic: "compound",
-    cues: [
-      "Face away from a low pulley holding a rope between your legs.",
-      "Push your hips back, then drive them forward to stand tall.",
-      "Your arms just hold the rope; your hips do the work.",
-    ],
-  },
-  {
-    id: "cable-kickback",
-    name: "Cable glute kickback",
-    imageId: "One-Legged_Cable_Kickback",
-    equipment: "cable",
+    id: "hip-abductor",
+    name: "Hip abductor machine",
+    imageId: "Thigh_Abductor",
+    equipment: "machine",
     mechanic: "isolation",
     cues: [
-      "Attach an ankle strap to a low pulley.",
-      "Kick your leg back, squeezing your glute.",
-      "Don't arch your lower back to get extra range.",
+      "Sit with the pads on the outside of your knees.",
+      "Push your knees out as far as you can.",
+      "Lean forward slightly to put more work on your glutes. Control the way back in.",
     ],
   },
   {
@@ -840,54 +819,6 @@ const exerciseList: Exercise[] = [
   },
 
   // Lower back
-  {
-    id: "deadlift",
-    name: "Deadlift",
-    imageId: "Barbell_Deadlift",
-    equipment: "barbell",
-    mechanic: "compound",
-    cues: [
-      "Stand with the bar over your mid-foot and grip it just outside your legs.",
-      "Flatten your back and push the floor away to stand up.",
-      "Keep the bar touching your legs the whole way.",
-    ],
-  },
-  {
-    id: "good-morning",
-    name: "Good morning",
-    imageId: "Good_Morning",
-    equipment: "barbell",
-    mechanic: "compound",
-    cues: [
-      "Rest a light bar on your upper back like a squat.",
-      "Push your hips back and lean forward with a flat back.",
-      "Stop when you feel a hamstring stretch, then stand back up.",
-    ],
-  },
-  {
-    id: "back-extension",
-    name: "Back extension",
-    imageId: "Hyperextensions_Back_Extensions",
-    equipment: "bodyweight",
-    mechanic: "isolation",
-    cues: [
-      "Set the pad just below your hips.",
-      "Lower your upper body, then raise it until it's in line with your legs.",
-      "Don't overarch at the top. Hold a plate to make it harder.",
-    ],
-  },
-  {
-    id: "reverse-hyperextension",
-    name: "Reverse hyperextension",
-    imageId: "Reverse_Hyperextension",
-    equipment: "machine",
-    mechanic: "compound",
-    cues: [
-      "Lie face down on the machine with your hips at the edge.",
-      "Swing your legs up until they're in line with your body.",
-      "Lower under control. Use a bench if there's no machine.",
-    ],
-  },
 ];
 
 export const exercises: Record<string, Exercise> = Object.fromEntries(

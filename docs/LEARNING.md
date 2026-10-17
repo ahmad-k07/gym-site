@@ -44,12 +44,12 @@ export function BackLink({ href, label }: { href: string; label: string }) {
 
 **Why bother?** The back link appears on several pages. Written once as a component, any change to it applies everywhere. That's the same idea as functions in any language: don't repeat yourself.
 
-**Lists:** [Workout.tsx](../src/components/Workout.tsx) turns an array of exercise IDs into cards with `.map()`:
+**Lists:** [Workout.tsx](../src/components/Workout.tsx) turns each group's array of exercise IDs into cards with `.map()`:
 
 ```tsx
-{region.exerciseIds.map((id, i) => (
+{slot.exerciseIds.map((id) => (
   <li key={id}>
-    <ExerciseCard exercise={exercises[id]} priority={i === 0} />
+    <ExerciseCard exercise={exercises[id]} />
   </li>
 ))}
 ```
@@ -71,7 +71,7 @@ export type Exercise = {
 };
 ```
 
-Every one of the 68 exercises must match this shape. If you typo `equipment: "dumbell"`, the editor underlines it in red before you even run the code. With 68 hand-written entries, mistakes like that are guaranteed, and TypeScript catches them all.
+Every one of the 62 exercises must match this shape. If you typo `equipment: "dumbell"`, the editor underlines it in red before you even run the code. With 62 hand-written entries, mistakes like that are guaranteed, and TypeScript catches them all.
 
 `Record<string, Exercise>` (at the bottom of the file) is a **dictionary/hash map**: look up an exercise by ID in O(1) time, e.g. `exercises["pull-up"]`.
 
@@ -194,7 +194,7 @@ These exercises go from easiest to hardest. Run `npm run dev`, and the browser u
 
 1. **Add a synonym:** make "boulders" find Shoulders. *(muscles.ts, one word.)*
 2. **Change the accent colour** in `globals.css` for both light and dark mode.
-3. **Swap an exercise:** in `muscles.ts`, replace `"reverse-crunch"` in the Abs list with `"pallof-press"` and watch the page change. Then change it back.
+3. **Swap an exercise:** in `muscles.ts`, replace `"reverse-crunch"` in the Abs `exerciseIds` list with `"pallof-press"` and watch the page change. Then change it back.
 4. **Add a brand-new exercise:** pick one from [free-exercise-db](https://github.com/yuhonas/free-exercise-db/tree/main/exercises), copy its `0.jpg` and `1.jpg` into `public/exercises/<Its_Id>/`, add an entry to `exercises.ts`, and reference its ID in `muscles.ts`. TypeScript will tell you if you've missed a field.
 5. **Add a feature:** show the number of working sets as small dots (●●○) on each card. You'll need a new component and some CSS.
 
