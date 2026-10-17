@@ -71,7 +71,7 @@ export type Exercise = {
 };
 ```
 
-Every one of the 62 exercises must match this shape. If you typo `equipment: "dumbell"`, the editor underlines it in red before you even run the code. With 62 hand-written entries, mistakes like that are guaranteed, and TypeScript catches them all.
+Every one of the 60 exercises must match this shape. If you typo `equipment: "dumbell"`, the editor underlines it in red before you even run the code. With 60 hand-written entries, mistakes like that are guaranteed, and TypeScript catches them all.
 
 `Record<string, Exercise>` (at the bottom of the file) is a **dictionary/hash map**: look up an exercise by ID in O(1) time, e.g. `exercises["pull-up"]`.
 

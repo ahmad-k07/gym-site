@@ -29,6 +29,7 @@ const quads = { label: "Quads", href: "/train/legs/quads" };
 const hamstrings = { label: "Hamstrings", href: "/train/legs/hamstrings" };
 const glutes = { label: "Glutes", href: "/train/legs/glutes" };
 const calves = { label: "Calves", href: "/train/legs/calves" };
+const adductors = { label: "Adductors", href: "/train/legs/adductors" };
 const abs = { label: "Abs", href: "/train/abs" };
 
 const fullBody: DayTemplate = {
@@ -44,7 +45,7 @@ const upper: DayTemplate = {
 const lower: DayTemplate = {
   name: "Lower",
   short: "Lower",
-  targets: [quads, hamstrings, glutes, calves, lowerBack, abs],
+  targets: [quads, hamstrings, glutes, adductors, calves, lowerBack, abs],
 };
 const anterior: DayTemplate = {
   name: "Anterior (front)",
@@ -69,7 +70,18 @@ const pull: DayTemplate = {
 const legs: DayTemplate = {
   name: "Legs",
   short: "Legs",
-  targets: [quads, hamstrings, glutes, calves, abs],
+  targets: [quads, hamstrings, glutes, adductors, calves, abs],
+};
+
+const chestBack: DayTemplate = {
+  name: "Chest and back",
+  short: "Chest + back",
+  targets: [chest, back],
+};
+const shouldersArms: DayTemplate = {
+  name: "Shoulders and arms",
+  short: "Delts + arms",
+  targets: [shoulders, biceps, triceps, forearms],
 };
 
 const upperLower4: Split = {
@@ -133,10 +145,12 @@ export const splitsByDays: Record<number, Split[]> = {
       summary: "Push, pull and legs, twice through. Every muscle gets trained twice a week.",
       week: [push, pull, legs, push, pull, legs, null],
     },
+    {
+      slug: "batman",
+      name: "Batman split",
+      summary: "Chest and back, shoulders and arms, then legs, twice through. Gives your upper body extra attention.",
+      week: [chestBack, shouldersArms, legs, chestBack, shouldersArms, legs, null],
+    },
   ],
 };
 
-/** The distinct training days in a split, in the order they first appear. */
-export function uniqueDays(split: Split): DayTemplate[] {
-  return [...new Set(split.week.filter((day): day is DayTemplate => day !== null))];
-}

@@ -46,8 +46,9 @@ export function ExerciseCard({
       </div>
 
       <div className={styles.body}>
-        <p className={styles.meta}>
-          {equipmentLabel[exercise.equipment]} · {exercise.mechanic === "compound" ? "Compound" : "Isolation"}
+        <p className={styles.chips}>
+          <span className={styles.chip}>{equipmentLabel[exercise.equipment]}</span>
+          <span className={styles.chip}>{exercise.mechanic === "compound" ? "Compound" : "Isolation"}</span>
         </p>
         <Heading className={styles.name}>{exercise.name}</Heading>
         {exercise.variations && (
@@ -66,6 +67,18 @@ export function ExerciseCard({
             <li key={cue}>{cue}</li>
           ))}
         </ul>
+
+        {/* A search link, not an embed: no video is hosted or copied here. */}
+        <a
+          className={styles.video}
+          href={`https://www.youtube.com/results?search_query=${encodeURIComponent(`${exercise.name} proper form`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Watch a video demo
+          <span className="visually-hidden"> (opens YouTube in a new tab)</span>
+          <span aria-hidden="true"> ↗</span>
+        </a>
       </div>
     </article>
   );

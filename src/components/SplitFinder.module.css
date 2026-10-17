@@ -1,41 +1,49 @@
 .picker {
-  margin: var(--space-4) 0 0;
+  margin: var(--space-5) 0 0;
   padding: 0;
   border: none;
 }
 
 .legend {
-  margin-bottom: var(--space-2);
-  font-weight: 600;
+  margin-bottom: var(--space-3);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
 }
 
 .options {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--space-2);
-  max-width: 24rem;
+  max-width: 26rem;
 }
 
 .option {
-  padding: var(--space-2) 0;
-  font: inherit;
-  font-size: 1.125rem;
-  font-weight: 600;
+  padding: var(--space-3) 0;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
   color: var(--color-text);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s, background-color 0.15s;
 }
 
 .option:hover {
   border-color: var(--color-accent);
+  transform: translateY(-2px);
 }
 
 .option[aria-pressed="true"] {
   color: var(--color-on-accent);
   background: var(--color-accent);
   border-color: var(--color-accent);
+  box-shadow: 0 8px 24px var(--color-accent-glow);
 }
 
 .note {
@@ -58,11 +66,22 @@
   padding: var(--space-4);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
+  animation: rise 0.35s ease-out both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 
 .name {
-  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .summary {
@@ -74,23 +93,46 @@
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: var(--space-1);
-  margin: 0 0 var(--space-4);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.week li {
+.cell,
+.dayWrap {
+  position: relative;
+  height: 100%;
+}
+
+.train,
+.rest {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2px;
-  padding: var(--space-2) 0;
-  border-radius: calc(var(--radius) - 2px);
+  width: 100%;
+  height: 100%;
+  min-height: 4rem;
+  padding: var(--space-2) 2px;
+  font: inherit;
   font-size: 0.8125rem;
+  text-align: center;
+  line-height: 1.2;
+  border-radius: calc(var(--radius) - 2px);
 }
 
 .train {
+  color: var(--color-accent);
   background: var(--color-accent-soft);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.train:hover,
+.train[aria-expanded="true"] {
+  border-color: var(--color-accent);
 }
 
 .rest {
@@ -99,53 +141,117 @@
 }
 
 .weekday {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--color-muted);
 }
 
 .dayLabel {
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.train .dayLabel {
-  color: var(--color-accent);
+.hint {
+  margin: var(--space-2) 0 0;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
 }
 
-.days {
-  display: grid;
-  gap: var(--space-3);
+/* Floating list of muscles for a training day. */
+.popover {
+  position: absolute;
+  z-index: 20;
+  bottom: calc(100% + var(--space-2));
+  left: 50%;
+  width: max-content;
+  min-width: 11rem;
+  max-width: 15rem;
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(-50%);
+  animation: pop 0.15s ease-out;
 }
 
-@media (min-width: 600px) {
-  .days {
-    grid-template-columns: repeat(2, 1fr);
+/* An invisible bridge so the mouse can move from the day into the popover without it closing. */
+.popover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: var(--space-2);
+}
+
+.alignStart {
+  left: 0;
+  transform: none;
+}
+
+.alignEnd {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    translate: 0 4px;
   }
 }
 
-.dayName {
+.popoverTitle {
   margin-bottom: var(--space-2);
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .targets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
+  display: grid;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .target {
-  display: inline-block;
-  padding: 2px var(--space-2);
-  font-size: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-1) 0;
+  font-size: 0.9375rem;
   text-decoration: none;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
+}
+
+.target span {
+  color: var(--color-muted);
+  transition: transform 0.15s;
 }
 
 .target:hover {
-  border-color: var(--color-accent);
   color: var(--color-accent);
+}
+
+.target:hover span {
+  color: var(--color-accent);
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .popover {
+    animation: none;
+  }
+}
+
+@media (max-width: 599px) {
+  .train,
+  .rest {
+    font-size: 0.75rem;
+  }
 }

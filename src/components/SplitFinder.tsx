@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { MAX_DAYS, MIN_DAYS, splitsByDays, uniqueDays, type Split } from "@/data/splits";
+import { useEffect, useRef, useState } from "react";
+import { MAX_DAYS, MIN_DAYS, splitsByDays, type DayTemplate, type Split } from "@/data/splits";
 import styles from "./SplitFinder.module.css";
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -52,36 +52,111 @@ export function SplitFinder() {
 }
 
 function SplitCard({ split }: { split: Split }) {
+  const [open, setOpen] = useState<number | null>(null);
+  const weekRef = useRef<HTMLOListElement>(null);
+
+  // Close the popover when tapping outside the week strip or pressing Escape.
+  useEffect(() => {
+    if (open === null) return;
+    function onPointerDown(event: PointerEvent) {
+      if (!weekRef.current?.contains(event.target as Node)) setOpen(null);
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(null);
+    }
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
   return (
     <article className={styles.card}>
       <h2 className={styles.name}>{split.name}</h2>
       <p className={styles.summary}>{split.summary}</p>
 
-      <ol className={styles.week} aria-label="Example week">
+      <ol ref={weekRef} className={styles.week} aria-label="Example week">
         {split.week.map((day, i) => (
-          <li key={WEEKDAYS[i]} className={day ? styles.train : styles.rest}>
-            <span className={styles.weekday}>{WEEKDAYS[i]}</span>
-            <span className={styles.dayLabel}>{day ? day.short : "Rest"}</span>
+          <li key={WEEKDAYS[i]} className={styles.cell}>
+            {day ? (
+              <TrainingDay
+                day={day}
+                weekday={WEEKDAYS[i]}
+                index={i}
+                open={open === i}
+                onOpen={() => setOpen(i)}
+                onToggle={() => setOpen(open === i ? null : i)}
+                onClose={() => setOpen(null)}
+              />
+            ) : (
+              <div className={styles.rest}>
+                <span className={styles.weekday}>{WEEKDAYS[i]}</span>
+                <span className={styles.dayLabel}>Rest</span>
+              </div>
+            )}
           </li>
         ))}
       </ol>
-
-      <div className={styles.days}>
-        {uniqueDays(split).map((day) => (
-          <div key={day.name}>
-            <h3 className={styles.dayName}>{day.name}</h3>
-            <ul className={styles.targets}>
-              {day.targets.map((target) => (
-                <li key={target.href}>
-                  <Link href={target.href} className={styles.target}>
-                    {target.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      <p className={styles.hint}>Hover or tap a day to see what to train.</p>
     </article>
+  );
+}
+
+function TrainingDay({
+  day,
+  weekday,
+  index,
+  open,
+  onOpen,
+  onToggle,
+  onClose,
+}: {
+  day: DayTemplate;
+  weekday: string;
+  index: number;
+  open: boolean;
+  onOpen: () => void;
+  onToggle: () => void;
+  onClose: () => void;
+}) {
+  const popoverId = `${weekday}-${day.short}`.replace(/\W+/g, "-");
+  // Keep the popover on screen: days near the edges open towards the middle.
+  const align = index < 2 ? styles.alignStart : index > 4 ? styles.alignEnd : "";
+
+  return (
+    <div
+      className={styles.dayWrap}
+      // Only real mouse hovers open on hover; taps are handled by onClick.
+      onPointerEnter={(event) => event.pointerType === "mouse" && onOpen()}
+      onPointerLeave={(event) => event.pointerType === "mouse" && onClose()}
+    >
+      <button
+        type="button"
+        className={styles.train}
+        aria-expanded={open}
+        aria-controls={popoverId}
+        onClick={onToggle}
+      >
+        <span className={styles.weekday}>{weekday}</span>
+        <span className={styles.dayLabel}>{day.short}</span>
+      </button>
+      {open && (
+        <div id={popoverId} className={`${styles.popover} ${align}`} role="dialog" aria-label={day.name}>
+          <p className={styles.popoverTitle}>{day.name}</p>
+          <ul className={styles.targets}>
+            {day.targets.map((target) => (
+              <li key={target.href}>
+                <Link href={target.href} className={styles.target}>
+                  {target.label}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }

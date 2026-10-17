@@ -10,7 +10,7 @@ A simple, calm website that tells you what to do in the gym. Search for a muscle
 2. Pick a sub-region (e.g. upper, middle, lower or whole chest). Groups with no sub-regions skip this step.
 3. See a short warm-up routine, then the exercises to choose from, each with an animated demo (start and end photos swapping), form cues and variations.
 
-The Splits page asks how many days a week you can train (2–6) and suggests splits: full body for 2–3 days, upper/lower or anterior/posterior for 4, push/pull/legs + upper/lower for 5, and upper/lower, anterior/posterior or push/pull/legs twice for 6. Seven days isn't offered because it's excessive and risky.
+The Splits page asks how many days a week you can train (2–6) and suggests splits: full body for 2–3 days, upper/lower or anterior/posterior for 4, push/pull/legs + upper/lower for 5, and upper/lower, anterior/posterior, push/pull/legs twice or the Batman split (chest and back, shoulders and arms, legs, twice) for 6. Hover or tap a day in the calendar to see which muscles to train. Seven days isn't offered because it's excessive and risky.
 
 ## Training prescription
 
@@ -32,10 +32,10 @@ Equipment assumes a full gym.
 | Chest | 1 upper chest + 1 whole/flat movement (2 total) |
 | Back | Upper and mid back: 1 upper row + 1 close-grip row + 1 lat movement. Lower back: SLDL |
 | Shoulders | 1 press (front delts) + 1 lateral raise (side delts). Rear delts optional if you do an upper row |
-| Biceps | 1 curl |
-| Triceps | 1 of JM press, dips or overhead extension + 1 pushdown |
-| Legs | Quads: squat or leg press + leg extension. Hamstrings: 1 leg curl. Glutes: hip thrust or abductor. Calves: 1 |
-| Abs | 1 abs + 1 obliques |
+| Biceps | 1 curl (single-arm curls help fix imbalances) |
+| Triceps | 1 of Smith JM press, dips or overhead extension + 1 pushdown |
+| Legs | Quads: squat or leg press + leg extension. Hamstrings: 1 leg curl. Glutes: hip thrust or abductor. Adductors: adductor machine. Calves: 1 |
+| Abs | 1 |
 | Forearms | Hammer or reverse curl; wrist curls optional |
 
 ## Running it
@@ -80,9 +80,9 @@ To change which exercises appear for a muscle, edit `exerciseIds` in `src/data/m
 
 - [x] HTML/CSS prototype (in git history)
 - [x] Next.js + TypeScript app
-- [x] Exercise data for 8 muscle groups (62 exercises)
+- [x] Exercise data for 8 muscle groups (60 exercises)
 - [x] Search with synonyms, section picker, workout pages with warm-ups, split finder
-- [x] Responsive layout, dark mode, keyboard-accessible search
+- [x] Responsive layout, dark mode (lime accent), condensed display headings, keyboard-accessible search
 - [ ] Deploy to Vercel
 - [ ] Optional: custom domain
 - [ ] v2: Accounts and progression tracking

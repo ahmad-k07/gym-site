@@ -50,6 +50,10 @@ export function MuscleSearch() {
         Search for a muscle
       </label>
       <div className={styles.row}>
+        <svg className={styles.icon} viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
         <input
           id={`${listId}-input`}
           className={styles.input}

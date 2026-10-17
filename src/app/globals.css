@@ -1,14 +1,15 @@
 /* Design tokens: every colour and spacing value on the site comes from here. */
 :root {
-  --color-bg: #fafaf9;
+  --color-bg: #f6f6f3;
   --color-surface: #ffffff;
-  --color-surface-hover: #f5f5f4;
-  --color-text: #1c1917;
-  --color-muted: #57534e;
-  --color-border: #e7e5e4;
-  --color-accent: #166534;
-  --color-accent-hover: #14532d;
-  --color-accent-soft: #f0fdf4;
+  --color-surface-hover: #f1f1ed;
+  --color-text: #111311;
+  --color-muted: #5b5f58;
+  --color-border: #e3e4de;
+  --color-accent: #15803d;
+  --color-accent-hover: #166534;
+  --color-accent-soft: #e9f7ee;
+  --color-accent-glow: rgb(21 128 61 / 0.22);
   --color-on-accent: #ffffff;
 
   --space-1: 0.25rem;
@@ -18,23 +19,28 @@
   --space-5: 2.5rem;
   --space-6: 4rem;
 
-  --radius: 8px;
-  --content-width: 44rem;
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.12);
+  --content-width: 48rem;
+  --font-body: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* --font-display is set by next/font in layout.tsx */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #1c1917;
-    --color-surface: #292524;
-    --color-surface-hover: #35302d;
-    --color-text: #fafaf9;
-    --color-muted: #a8a29e;
-    --color-border: #44403c;
-    --color-accent: #4ade80;
-    --color-accent-hover: #86efac;
-    --color-accent-soft: #1f2e24;
-    --color-on-accent: #052e16;
+    --color-bg: #0a0b0a;
+    --color-surface: #141614;
+    --color-surface-hover: #1b1e1b;
+    --color-text: #f3f5f0;
+    --color-muted: #9aa197;
+    --color-border: #252925;
+    --color-accent: #a3e635;
+    --color-accent-hover: #bef264;
+    --color-accent-soft: rgb(163 230 53 / 0.1);
+    --color-accent-glow: rgb(163 230 53 / 0.28);
+    --color-on-accent: #0a0b0a;
+    --shadow-lg: 0 16px 40px rgb(0 0 0 / 0.5);
   }
 }
 
@@ -50,7 +56,7 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font);
+  font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
   color: var(--color-text);
@@ -60,23 +66,31 @@ body {
 
 h1,
 h2,
-h3 {
-  line-height: 1.2;
+h3,
+h4 {
+  line-height: 1.15;
   margin: 0 0 var(--space-2);
   text-wrap: balance;
 }
 
+/* Big headings use the condensed display font, in capitals, like gym signage. */
 h1 {
-  font-size: 2rem;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 3.75rem);
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 h2 {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 h3 {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
 }
 
 p {
@@ -85,6 +99,11 @@ p {
 
 a {
   color: inherit;
+}
+
+::selection {
+  color: var(--color-on-accent);
+  background: var(--color-accent);
 }
 
 :focus-visible {
@@ -111,4 +130,20 @@ a {
 .lead {
   color: var(--color-muted);
   font-size: 1.125rem;
+  max-width: 36rem;
+}
+
+/* Small uppercase label above a heading. */
+.eyebrow {
+  display: inline-block;
+  margin-bottom: var(--space-2);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+.accent {
+  color: var(--color-accent);
 }

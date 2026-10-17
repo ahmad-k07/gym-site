@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
+import { Barlow_Condensed, Inter } from "next/font/google";
 import Link from "next/link";
 import { SITE_NAME } from "@/lib/prescription";
 import "./globals.css";
 import styles from "./layout.module.css";
+
+// Condensed display font for headings, Inter for everything else. next/font serves both from this site.
+const display = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  variable: "--font-display",
+});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
@@ -15,11 +24,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${display.variable} ${inter.variable}`}>
       <body>
         <header className={styles.header}>
           <div className={`container ${styles.headerInner}`}>
             <Link href="/" className={styles.logo}>
+              <span className={styles.mark} aria-hidden="true" />
               {SITE_NAME}
             </Link>
             <nav aria-label="Main">

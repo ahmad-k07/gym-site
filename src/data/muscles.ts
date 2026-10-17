@@ -117,7 +117,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "shoulders",
     name: "Shoulders",
     synonyms: ["shoulder", "delts", "deltoids"],
-    tip: "Do a shoulder press for your front delts and a lateral raise for your side delts. Short on time? Lateral raises alone are fine, on a cable with a wrist cuff, a machine or dumbbells, because pressing already hits your front and side delts.",
+    tip: "Do a shoulder press for your front delts and a lateral raise for your side delts. Short on time? Lateral raises alone are fine, on a cable with a wrist cuff, a machine or dumbbells, because lateral raises already hit your front and side delts.",
     warmUp: [
       { name: "Arm circles", dose: "10 forwards, 10 backwards", how: "Start small and make the circles bigger each rep." },
       { name: "Band dislocates", dose: "10 reps", how: "Hold a band wide with straight arms and move it over your head and behind you." },
@@ -158,7 +158,7 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "biceps",
     name: "Biceps",
     synonyms: ["bicep", "bis", "arms", "guns", "curls"],
-    tip: "One curl is enough. Pick the one you like best and focus on getting stronger at it.",
+    tip: "One curl is enough. Pick the one you like best and focus on getting stronger at it. If one arm is bigger or stronger, a single-arm curl helps fix the imbalance.",
     warmUp: [
       { name: "Arm circles", dose: "10 each way", how: "Big slow circles to loosen the shoulders and elbows." },
       { name: "Forearm rotations", dose: "10 each way", how: "Elbows bent at your sides, turn your palms up and down." },
@@ -171,7 +171,7 @@ export const muscleGroups: MuscleGroup[] = [
         blurb: "The front of the upper arm, trained by curling.",
         synonyms: [],
         slots: [
-          { pick: 1, exerciseIds: ["barbell-curl", "ez-bar-curl", "dumbbell-curl", "incline-dumbbell-curl", "preacher-curl", "cable-curl"] },
+          { pick: 1, exerciseIds: ["barbell-curl", "ez-bar-curl", "dumbbell-curl", "incline-dumbbell-curl", "preacher-curl", "cable-curl", "single-arm-cable-curl"] },
         ],
       },
     ],
@@ -261,13 +261,26 @@ export const muscleGroups: MuscleGroup[] = [
           { pick: 1, exerciseIds: ["standing-calf-raise", "seated-calf-raise", "leg-press-calf-raise", "smith-calf-raise"] },
         ],
       },
+      {
+        slug: "adductors",
+        name: "Adductors",
+        blurb: "The inner thighs, trained by squeezing your legs together.",
+        synonyms: ["adductor", "inner thighs", "inner thigh", "groin"],
+        warmUp: [
+          { name: "Side-to-side leg swings", dose: "10 each leg", how: "Hold on to something and swing each leg across your body." },
+          { name: "Side lunges", dose: "8 each side", how: "Step wide and sit into one hip, keeping the other leg straight." },
+        ],
+        slots: [
+          { pick: 1, exerciseIds: ["hip-adductor"] },
+        ],
+      },
     ],
   },
   {
     slug: "abs",
     name: "Abs",
-    synonyms: ["abdominals", "core", "stomach", "six pack", "ab"],
-    tip: "One exercise for abs and one for obliques is enough. You won't see abs if your diet isn't sorted, no matter how much you train them.",
+    synonyms: ["abdominals", "core", "stomach", "six pack", "ab", "upper abs", "lower abs", "crunches"],
+    tip: "One abs exercise is enough. You won't see abs if your diet isn't sorted, no matter how much you train them.",
     warmUp: [
       { name: "Cat-cow", dose: "8 slow reps", how: "On hands and knees, round your back up, then let it sag down." },
       { name: "Dead bugs", dose: "8 each side", how: "On your back, lower the opposite arm and leg while keeping your lower back pressed down." },
@@ -281,15 +294,6 @@ export const muscleGroups: MuscleGroup[] = [
         synonyms: ["upper abs", "lower abs", "crunches"],
         slots: [
           { pick: 1, exerciseIds: ["cable-crunch", "ab-crunch-machine", "hanging-leg-raise", "captains-chair-knee-raise", "reverse-crunch"] },
-        ],
-      },
-      {
-        slug: "obliques",
-        name: "Obliques",
-        blurb: "The sides of your waist, trained by twisting, bending sideways and resisting rotation.",
-        synonyms: ["oblique", "side abs", "love handles", "waist"],
-        slots: [
-          { pick: 1, exerciseIds: ["cable-woodchop", "pallof-press", "dumbbell-side-bend", "oblique-crunch"] },
         ],
       },
     ],
