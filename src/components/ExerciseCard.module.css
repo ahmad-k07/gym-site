@@ -1,0 +1,94 @@
+.card {
+  display: grid;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+@media (min-width: 640px) {
+  .card {
+    grid-template-columns: 45% minmax(0, 1fr);
+  }
+}
+
+.demo {
+  position: relative;
+  align-self: start;
+  aspect-ratio: 3 / 2;
+  background: var(--color-surface-hover);
+}
+
+.demo img {
+  object-fit: cover;
+}
+
+/* The end-position photo fades in and out on top of the start-position photo. */
+.endFrame {
+  animation: swap 2s steps(1) infinite;
+}
+
+@keyframes swap {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Respect people who've asked their device to reduce motion: show a still image. */
+@media (prefers-reduced-motion: reduce) {
+  .endFrame {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+.body {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.number {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border-radius: 50%;
+}
+
+.name {
+  font-size: 1.1875rem;
+}
+
+.reps {
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+}
+
+.reps strong {
+  color: var(--color-text);
+}
+
+.cues {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.9375rem;
+}
+
+.cues li + li {
+  margin-top: var(--space-1);
+}

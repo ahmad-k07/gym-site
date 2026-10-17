@@ -1,0 +1,11 @@
+.back {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--color-text);
+}

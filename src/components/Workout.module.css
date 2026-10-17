@@ -1,0 +1,13 @@
+.hint {
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+.list {
+  grid-template-columns: minmax(0, 1fr);
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
