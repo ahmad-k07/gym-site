@@ -42,6 +42,7 @@ async function RegionContent({ params }: { params: Params }) {
   const hasPicker = group.regions.length > 1;
   return (
     <Workout
+      group={group}
       region={region}
       backHref={hasPicker ? `/train/${group.slug}` : "/"}
       backLabel={hasPicker ? group.name : "All muscles"}

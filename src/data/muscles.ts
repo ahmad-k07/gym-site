@@ -1,11 +1,21 @@
+export type WarmUpMove = {
+  name: string;
+  /** How much to do, e.g. "10 each way" or "15 seconds each side". */
+  dose: string;
+  how: string;
+};
+
 export type Region = {
   slug: string;
   name: string;
-  /** One line shown on the region picker. */
+  /** One line shown on the region picker and under the page heading. */
   blurb: string;
-  /** Extra words people might search for, e.g. "lats". */
+  /** Extra words people might search for, e.g. "upper pecs". */
   synonyms: string[];
-  /** Exercise IDs in order: compound movements first, isolation last. */
+  /** How many of the listed exercises to pick for a session. Shown as "Pick X of these". */
+  pick?: number;
+  /** Overrides the group's warm-up when this region needs different moves. */
+  warmUp?: WarmUpMove[];
   exerciseIds: string[];
 };
 
@@ -13,6 +23,10 @@ export type MuscleGroup = {
   slug: string;
   name: string;
   synonyms: string[];
+  /** Advice shown on the group page and its workouts. */
+  tip?: string;
+  /** Mobility moves done before the warm-up set. */
+  warmUp: WarmUpMove[];
   /** A group with a single region skips the picker and goes straight to exercises. */
   regions: Region[];
 };
@@ -22,54 +36,32 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "chest",
     name: "Chest",
     synonyms: ["pecs", "pec", "pectorals"],
+    tip: "Doing one flat movement (e.g. bench press or pec deck) and one upper chest movement (e.g. incline Smith press) is highly recommended.",
+    warmUp: [
+      { name: "Arm circles", dose: "10 forwards, 10 backwards", how: "Arms straight out to the sides, making big slow circles." },
+      { name: "Cross-body arm swings", dose: "10 swings", how: "Swing your arms open wide, then across your chest, hugging yourself." },
+      { name: "Doorway chest stretch", dose: "15 seconds each side", how: "Forearm on a door frame, step through gently until you feel a light stretch." },
+      { name: "Push-ups", dose: "10 easy reps", how: "Slow and controlled to get blood into the chest." },
+    ],
     regions: [
       {
         slug: "upper",
         name: "Upper chest",
-        blurb: "The top of the chest near the collarbone, trained by pressing at an incline.",
+        blurb: "The top of the chest near the collarbone, trained by pressing and flying at an incline.",
         synonyms: ["upper pecs", "clavicular", "incline"],
         exerciseIds: [
+          "smith-incline-press",
           "barbell-incline-bench-press",
           "incline-dumbbell-press",
-          "incline-machine-press",
-          "incline-cable-fly",
-        ],
-      },
-      {
-        slug: "middle",
-        name: "Middle chest",
-        blurb: "The bulk of the chest, trained by pressing on a flat bench.",
-        synonyms: ["mid chest", "middle pecs", "sternal"],
-        exerciseIds: [
-          "barbell-bench-press",
-          "dumbbell-bench-press",
-          "machine-chest-press",
-          "pec-deck",
-        ],
-      },
-      {
-        slug: "lower",
-        name: "Lower chest",
-        blurb: "The bottom edge of the chest, trained by pressing downwards.",
-        synonyms: ["lower pecs", "decline"],
-        exerciseIds: [
-          "chest-dip",
-          "decline-barbell-bench-press",
-          "decline-dumbbell-press",
-          "cable-crossover",
+          "low-to-high-cable-fly",
         ],
       },
       {
         slug: "whole",
         name: "Whole chest",
-        blurb: "A balanced mix covering the upper, middle and lower chest.",
-        synonyms: [],
-        exerciseIds: [
-          "barbell-bench-press",
-          "incline-dumbbell-press",
-          "chest-dip",
-          "pec-deck",
-        ],
+        blurb: "Flat pressing and flys that work the whole chest.",
+        synonyms: ["flat", "mid chest", "middle chest", "flat bench"],
+        exerciseIds: ["barbell-bench-press", "smith-bench-press", "chest-dip", "pec-deck"],
       },
     ],
   },
@@ -77,42 +69,30 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "back",
     name: "Back",
     synonyms: [],
+    warmUp: [
+      { name: "Cat-cow", dose: "8 slow reps", how: "On hands and knees, round your back up, then let it sag down." },
+      { name: "Band pull-aparts", dose: "15 reps", how: "Hold a light band at chest height and pull it apart to your chest." },
+      { name: "Dead hang", dose: "20–30 seconds", how: "Hang from a pull-up bar and let your shoulders stretch." },
+    ],
     regions: [
-      {
-        slug: "lats",
-        name: "Lats",
-        blurb: "The large muscles down your sides that give your back its width.",
-        synonyms: ["lat", "latissimus", "back width", "wings"],
-        exerciseIds: [
-          "pull-up",
-          "wide-grip-lat-pulldown",
-          "close-grip-pulldown",
-          "straight-arm-pulldown",
-        ],
-      },
       {
         slug: "upper-back",
         name: "Upper and mid back",
-        blurb: "The traps, rhomboids and muscles between your shoulder blades that give your back its thickness.",
-        synonyms: ["upper back", "mid back", "middle back", "rhomboids", "traps", "back thickness"],
-        exerciseIds: [
-          "barbell-row",
-          "t-bar-row",
-          "seated-cable-row",
-          "one-arm-dumbbell-row",
-        ],
+        blurb: "The traps, rhomboids and muscles between your shoulder blades, trained by rowing.",
+        synonyms: ["upper back", "mid back", "middle back", "rhomboids", "traps", "back thickness", "rows"],
+        exerciseIds: ["barbell-row", "t-bar-row", "seated-cable-row", "one-arm-dumbbell-row"],
       },
       {
-        slug: "whole",
-        name: "Whole back",
-        blurb: "A mix of vertical pulls for width and rows for thickness.",
-        synonyms: [],
-        exerciseIds: [
-          "pull-up",
-          "barbell-row",
-          "wide-grip-lat-pulldown",
-          "seated-cable-row",
+        slug: "lower-back",
+        name: "Lower back",
+        blurb: "The muscles along your spine that keep your back strong and stable.",
+        synonyms: ["erectors", "spinal erectors", "low back"],
+        warmUp: [
+          { name: "Cat-cow", dose: "8 slow reps", how: "On hands and knees, round your back up, then let it sag down." },
+          { name: "Glute bridges", dose: "12 reps", how: "Lying on your back, drive your hips up and squeeze your glutes." },
+          { name: "Bodyweight good mornings", dose: "10 reps", how: "Hands on your head, push your hips back with a flat back, then stand up." },
         ],
+        exerciseIds: ["deadlift", "good-morning", "back-extension", "reverse-hyperextension"],
       },
     ],
   },
@@ -120,6 +100,11 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "shoulders",
     name: "Shoulders",
     synonyms: ["shoulder", "delts", "deltoids"],
+    warmUp: [
+      { name: "Arm circles", dose: "10 forwards, 10 backwards", how: "Start small and make the circles bigger each rep." },
+      { name: "Band dislocates", dose: "10 reps", how: "Hold a band wide with straight arms and move it over your head and behind you." },
+      { name: "Band external rotations", dose: "12 each arm", how: "Elbow tucked at your side, rotate your forearm outwards against a light band." },
+    ],
     regions: [
       {
         slug: "front",
@@ -138,12 +123,7 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Side delts",
         blurb: "The outside of the shoulder that makes your shoulders look wider.",
         synonyms: ["side delt", "lateral delts", "medial delts", "side shoulders"],
-        exerciseIds: [
-          "upright-row",
-          "lateral-raise",
-          "seated-lateral-raise",
-          "incline-lateral-raise",
-        ],
+        exerciseIds: ["upright-row", "lateral-raise", "seated-lateral-raise", "incline-lateral-raise"],
       },
       {
         slug: "rear",
@@ -157,71 +137,32 @@ export const muscleGroups: MuscleGroup[] = [
           "bent-over-rear-delt-raise",
         ],
       },
-      {
-        slug: "whole",
-        name: "Whole shoulders",
-        blurb: "Pressing for the front, plus raises for the side and rear.",
-        synonyms: [],
-        exerciseIds: [
-          "overhead-press",
-          "dumbbell-shoulder-press",
-          "lateral-raise",
-          "reverse-pec-deck",
-        ],
-      },
     ],
   },
   {
     slug: "biceps",
     name: "Biceps",
-    synonyms: ["bicep", "bis", "arms", "guns"],
+    synonyms: ["bicep", "bis", "arms", "guns", "curls"],
+    tip: "One curl is enough. Pick the one you like best and focus on getting stronger at it.",
+    warmUp: [
+      { name: "Arm circles", dose: "10 each way", how: "Big slow circles to loosen the shoulders and elbows." },
+      { name: "Forearm rotations", dose: "10 each way", how: "Elbows bent at your sides, turn your palms up and down." },
+      { name: "Light band curls", dose: "15 reps", how: "Easy curls with a light band to get blood into the arms." },
+    ],
     regions: [
       {
-        slug: "long-head",
-        name: "Long head",
-        blurb: "The outer part of the biceps that forms the peak. Trained with your arms behind your body.",
-        synonyms: ["bicep long head", "biceps peak", "outer biceps"],
-        exerciseIds: [
-          "incline-dumbbell-curl",
-          "drag-curl",
-          "close-grip-ez-curl",
-          "cable-curl",
-        ],
-      },
-      {
-        slug: "short-head",
-        name: "Short head",
-        blurb: "The inner part of the biceps. Trained with your arms in front of your body.",
-        synonyms: ["bicep short head", "inner biceps"],
-        exerciseIds: [
-          "preacher-curl",
-          "wide-grip-barbell-curl",
-          "spider-curl",
-          "concentration-curl",
-        ],
-      },
-      {
-        slug: "brachialis",
-        name: "Brachialis",
-        blurb: "The muscle under the biceps that pushes them up and adds arm thickness. Trained with a neutral grip.",
-        synonyms: ["brachioradialis", "hammer"],
-        exerciseIds: [
-          "hammer-curl",
-          "cross-body-hammer-curl",
-          "reverse-barbell-curl",
-          "rope-hammer-curl",
-        ],
-      },
-      {
-        slug: "whole",
-        name: "Whole biceps",
-        blurb: "A mix that covers both heads and the brachialis.",
+        slug: "curls",
+        name: "Curls",
+        blurb: "The front of the upper arm, trained by curling.",
         synonyms: [],
+        pick: 1,
         exerciseIds: [
           "barbell-curl",
+          "ez-bar-curl",
+          "dumbbell-curl",
           "incline-dumbbell-curl",
           "preacher-curl",
-          "hammer-curl",
+          "cable-curl",
         ],
       },
     ],
@@ -230,41 +171,24 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "triceps",
     name: "Triceps",
     synonyms: ["tricep", "tris", "arms"],
+    tip: "All triceps movements hit all three heads, so you don't need a separate exercise for each.",
+    warmUp: [
+      { name: "Arm circles", dose: "10 each way", how: "Big slow circles to loosen the shoulders." },
+      { name: "Overhead triceps stretch", dose: "15 seconds each arm", how: "Reach one hand down your back and gently push the elbow with the other hand." },
+      { name: "Light band pushdowns", dose: "15 reps", how: "Easy pushdowns with a light band or cable." },
+    ],
     regions: [
       {
-        slug: "long-head",
-        name: "Long head",
-        blurb: "The largest part of the triceps, trained best with your arms overhead.",
-        synonyms: ["tricep long head", "triceps long head"],
-        exerciseIds: [
-          "overhead-cable-extension",
-          "ez-bar-skullcrusher",
-          "overhead-dumbbell-extension",
-          "lying-dumbbell-extension",
-        ],
-      },
-      {
-        slug: "lateral-medial",
-        name: "Lateral and medial heads",
-        blurb: "The outer horseshoe of the triceps, trained by pressing and pushdowns.",
-        synonyms: ["lateral head", "medial head", "outer triceps", "horseshoe"],
-        exerciseIds: [
-          "close-grip-bench-press",
-          "triceps-dip",
-          "rope-pushdown",
-          "bar-pushdown",
-        ],
-      },
-      {
-        slug: "whole",
-        name: "Whole triceps",
-        blurb: "Heavy pressing plus overhead and pushdown work for all three heads.",
+        slug: "triceps",
+        name: "Triceps",
+        blurb: "Pressing and extensions for the back of the arm.",
         synonyms: [],
         exerciseIds: [
-          "close-grip-bench-press",
-          "triceps-dip",
+          "single-arm-pushdown",
           "overhead-cable-extension",
           "rope-pushdown",
+          "jm-press",
+          "triceps-dip",
         ],
       },
     ],
@@ -273,6 +197,11 @@ export const muscleGroups: MuscleGroup[] = [
     slug: "legs",
     name: "Legs",
     synonyms: ["leg", "lower body", "leg day"],
+    warmUp: [
+      { name: "Leg swings", dose: "10 each leg, front-to-back and side-to-side", how: "Hold on to something and swing each leg loosely." },
+      { name: "Bodyweight squats", dose: "10 reps", how: "Slow, deep squats with your chest up." },
+      { name: "Walking lunges", dose: "10 steps", how: "Long steps, lowering your back knee towards the floor." },
+    ],
     regions: [
       {
         slug: "quads",
@@ -286,6 +215,11 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Hamstrings",
         blurb: "The back of the thighs, trained by hip hinges and leg curls.",
         synonyms: ["hamstring", "hammies", "hams", "back of thighs"],
+        warmUp: [
+          { name: "Leg swings", dose: "10 each leg", how: "Hold on to something and swing each leg front-to-back." },
+          { name: "Inchworms", dose: "5 reps", how: "From standing, walk your hands out to a push-up position, then walk them back." },
+          { name: "Bodyweight good mornings", dose: "10 reps", how: "Hands on your head, push your hips back with a flat back, then stand up." },
+        ],
         exerciseIds: [
           "romanian-deadlift",
           "dumbbell-stiff-leg-deadlift",
@@ -298,18 +232,22 @@ export const muscleGroups: MuscleGroup[] = [
         name: "Glutes",
         blurb: "The muscles of the hips and bum, trained by driving your hips forward.",
         synonyms: ["glute", "bum", "butt", "booty", "hips"],
-        exerciseIds: [
-          "hip-thrust",
-          "bulgarian-split-squat",
-          "cable-pull-through",
-          "cable-kickback",
+        warmUp: [
+          { name: "Glute bridges", dose: "12 reps", how: "Lying on your back, drive your hips up and squeeze your glutes." },
+          { name: "Leg swings", dose: "10 each leg, side-to-side", how: "Hold on to something and swing each leg across your body." },
+          { name: "Bodyweight squats", dose: "10 reps", how: "Slow, deep squats with your chest up." },
         ],
+        exerciseIds: ["hip-thrust", "bulgarian-split-squat", "cable-pull-through", "cable-kickback"],
       },
       {
         slug: "calves",
         name: "Calves",
         blurb: "The lower legs, trained by raising your heels.",
         synonyms: ["calf", "lower legs"],
+        warmUp: [
+          { name: "Ankle circles", dose: "10 each way, each foot", how: "Lift one foot and draw slow circles with your toes." },
+          { name: "Bodyweight calf raises", dose: "15 reps", how: "On a step, rise up and lower your heels into a full stretch." },
+        ],
         exerciseIds: [
           "standing-calf-raise",
           "seated-calf-raise",
@@ -317,37 +255,29 @@ export const muscleGroups: MuscleGroup[] = [
           "smith-calf-raise",
         ],
       },
-      {
-        slug: "whole",
-        name: "Whole legs",
-        blurb: "A squat, a hinge, a press and a curl to cover the front and back of your legs.",
-        synonyms: [],
-        exerciseIds: ["barbell-squat", "romanian-deadlift", "leg-press", "lying-leg-curl"],
-      },
     ],
   },
   {
     slug: "abs",
     name: "Abs",
     synonyms: ["abdominals", "core", "stomach", "six pack", "ab"],
+    warmUp: [
+      { name: "Cat-cow", dose: "8 slow reps", how: "On hands and knees, round your back up, then let it sag down." },
+      { name: "Dead bugs", dose: "8 each side", how: "On your back, lower the opposite arm and leg while keeping your lower back pressed down." },
+      { name: "Standing torso twists", dose: "10 each side", how: "Feet planted, rotate your upper body side to side." },
+    ],
     regions: [
       {
-        slug: "upper",
-        name: "Upper abs",
-        blurb: "Trained by curling your ribs down towards your hips.",
-        synonyms: ["upper ab"],
-        exerciseIds: ["cable-crunch", "ab-crunch-machine", "decline-crunch", "crunch"],
-      },
-      {
-        slug: "lower",
-        name: "Lower abs",
-        blurb: "Trained by curling your hips up towards your ribs.",
-        synonyms: ["lower ab"],
+        slug: "abs",
+        name: "Abs",
+        blurb: "The front of your stomach, trained by crunching and raising your legs.",
+        synonyms: ["upper abs", "lower abs", "crunches"],
         exerciseIds: [
+          "cable-crunch",
+          "ab-crunch-machine",
           "hanging-leg-raise",
           "captains-chair-knee-raise",
           "reverse-crunch",
-          "lying-leg-raise",
         ],
       },
       {
@@ -357,69 +287,24 @@ export const muscleGroups: MuscleGroup[] = [
         synonyms: ["oblique", "side abs", "love handles", "waist"],
         exerciseIds: ["cable-woodchop", "pallof-press", "dumbbell-side-bend", "oblique-crunch"],
       },
-      {
-        slug: "whole",
-        name: "Whole core",
-        blurb: "Upper, lower and obliques, plus a rollout for overall strength.",
-        synonyms: [],
-        exerciseIds: ["cable-crunch", "hanging-leg-raise", "barbell-rollout", "cable-woodchop"],
-      },
     ],
   },
   {
     slug: "forearms",
     name: "Forearms",
     synonyms: ["forearm", "grip", "wrists", "wrist"],
-    regions: [
-      {
-        slug: "flexors",
-        name: "Flexors",
-        blurb: "The palm side of the forearm, used for grip. Trained with palms-up wrist curls.",
-        synonyms: ["forearm flexors", "wrist flexors", "inner forearm"],
-        exerciseIds: [
-          "barbell-wrist-curl",
-          "dumbbell-wrist-curl",
-          "cable-wrist-curl",
-          "behind-back-wrist-curl",
-        ],
-      },
-      {
-        slug: "extensors",
-        name: "Extensors",
-        blurb: "The back of the forearm. Trained with palms-down movements.",
-        synonyms: ["forearm extensors", "wrist extensors", "outer forearm"],
-        exerciseIds: [
-          "reverse-barbell-curl",
-          "reverse-wrist-curl",
-          "dumbbell-reverse-wrist-curl",
-          "wrist-roller",
-        ],
-      },
-      {
-        slug: "whole",
-        name: "Whole forearms",
-        blurb: "Both sides of the forearm.",
-        synonyms: [],
-        exerciseIds: [
-          "reverse-barbell-curl",
-          "barbell-wrist-curl",
-          "reverse-wrist-curl",
-          "wrist-roller",
-        ],
-      },
+    warmUp: [
+      { name: "Wrist circles", dose: "10 each way", how: "Make slow circles with both fists." },
+      { name: "Wrist flexor and extensor stretch", dose: "15 seconds each way", how: "Arm straight out, gently pull your fingers back, then push the back of your hand down." },
+      { name: "Fist clenches", dose: "15 reps", how: "Squeeze your hands into tight fists, then spread your fingers wide." },
     ],
-  },
-  {
-    slug: "lower-back",
-    name: "Lower back",
-    synonyms: ["erectors", "spinal erectors", "low back"],
     regions: [
       {
-        slug: "all",
-        name: "Lower back",
-        blurb: "The muscles along your spine that keep your back strong and stable.",
+        slug: "forearms",
+        name: "Forearms",
+        blurb: "Hammer curls, reverse curls and wrist curls to cover the whole forearm.",
         synonyms: [],
-        exerciseIds: ["deadlift", "good-morning", "back-extension", "reverse-hyperextension"],
+        exerciseIds: ["hammer-curl", "reverse-curl", "cable-wrist-curl", "reverse-wrist-curl"],
       },
     ],
   },

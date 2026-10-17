@@ -13,11 +13,9 @@ const equipmentLabel: Record<Exercise["equipment"], string> = {
 
 export function ExerciseCard({
   exercise,
-  number,
   priority = false,
 }: {
   exercise: Exercise;
-  number: number;
   /** Load the image straight away instead of lazily (for the first card, which is visible on load). */
   priority?: boolean;
 }) {
@@ -45,10 +43,14 @@ export function ExerciseCard({
 
       <div className={styles.body}>
         <p className={styles.meta}>
-          <span className={styles.number}>{number}</span>
           {equipmentLabel[exercise.equipment]} · {exercise.mechanic === "compound" ? "Compound" : "Isolation"}
         </p>
         <h3 className={styles.name}>{exercise.name}</h3>
+        {exercise.variations && (
+          <p className={styles.variations}>
+            <strong>Options:</strong> {exercise.variations}
+          </p>
+        )}
 
         <p className={styles.reps}>
           <strong>6–10 reps</strong> recommended

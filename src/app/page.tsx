@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { LinkGrid } from "@/components/LinkGrid";
 import { MuscleSearch } from "@/components/MuscleSearch";
-import { learnTopics } from "@/data/learn";
 import { muscleGroups } from "@/data/muscles";
 import styles from "./page.module.css";
 
@@ -22,17 +21,12 @@ export default function Home() {
       </section>
 
       <section className={styles.section}>
-        <h2>Learn the basics</h2>
-        <ul className={styles.topics}>
-          {learnTopics.map((topic) => (
-            <li key={topic.slug}>
-              <Link href={`/learn#${topic.slug}`} className={styles.topic}>
-                <span className={styles.topicTitle}>{topic.title}</span>
-                <span className={styles.topicSummary}>{topic.summary}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <Link href="/splits" className={styles.splits}>
+          <span className={styles.splitsTitle}>Not sure how to plan your week? →</span>
+          <span className={styles.splitsText}>
+            Tell us how many days you can train and we&apos;ll show you which split to follow.
+          </span>
+        </Link>
       </section>
     </>
   );

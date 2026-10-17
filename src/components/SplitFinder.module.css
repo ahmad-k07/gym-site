@@ -1,0 +1,151 @@
+.picker {
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  border: none;
+}
+
+.legend {
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-2);
+  max-width: 24rem;
+}
+
+.option {
+  padding: var(--space-2) 0;
+  font: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.option:hover {
+  border-color: var(--color-accent);
+}
+
+.option[aria-pressed="true"] {
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.note {
+  margin: var(--space-3) 0 0;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.count {
+  margin: var(--space-5) 0 var(--space-3);
+  font-weight: 600;
+}
+
+.splits {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.card {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.name {
+  font-size: 1.25rem;
+}
+
+.summary {
+  color: var(--color-muted);
+}
+
+/* The Mon–Sun strip. */
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-1);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.week li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-2) 0;
+  border-radius: calc(var(--radius) - 2px);
+  font-size: 0.8125rem;
+}
+
+.train {
+  background: var(--color-accent-soft);
+}
+
+.rest {
+  color: var(--color-muted);
+  background: var(--color-bg);
+}
+
+.weekday {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.dayLabel {
+  font-weight: 600;
+}
+
+.train .dayLabel {
+  color: var(--color-accent);
+}
+
+.days {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 600px) {
+  .days {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.dayName {
+  margin-bottom: var(--space-2);
+  font-size: 1rem;
+}
+
+.targets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.target {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  font-size: 0.875rem;
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+}
+
+.target:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}

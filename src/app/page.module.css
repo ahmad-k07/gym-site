@@ -2,34 +2,28 @@
   margin-top: var(--space-6);
 }
 
-.topics {
-  margin: var(--space-3) 0 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--color-border);
-}
-
-.topics li {
-  border-bottom: 1px solid var(--color-border);
-}
-
-.topic {
+.splits {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  padding: var(--space-3) 0;
+  padding: var(--space-4);
   text-decoration: none;
+  background: var(--color-accent-soft);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
 }
 
-.topicTitle {
+.splits:hover {
+  border-color: var(--color-accent);
+}
+
+.splitsTitle {
   font-weight: 600;
-}
-
-.topic:hover .topicTitle {
+  font-size: 1.0625rem;
   color: var(--color-accent);
 }
 
-.topicSummary {
+.splitsText {
   color: var(--color-muted);
-  font-size: 0.9375rem;
 }

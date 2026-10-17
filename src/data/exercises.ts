@@ -18,12 +18,26 @@ export type Exercise = {
   cues: string[];
   /** Another rep range that suits this exercise, shown next to the recommended 6–10. */
   altReps?: string;
+  /** Other ways to do the same exercise, e.g. "Rope or straight bar". */
+  variations?: string;
 };
 
 const HIGH_REPS = "10–15";
 
 const exerciseList: Exercise[] = [
   // Chest
+  {
+    id: "smith-incline-press",
+    name: "Incline Smith machine press",
+    imageId: "Smith_Machine_Incline_Bench_Press",
+    equipment: "machine",
+    mechanic: "compound",
+    cues: [
+      "Set an incline bench at about 30° under the bar.",
+      "Lower the bar to your upper chest, just below the collarbones.",
+      "The fixed bar path lets you push hard without balancing the weight.",
+    ],
+  },
   {
     id: "barbell-incline-bench-press",
     name: "Incline barbell bench press",
@@ -49,27 +63,15 @@ const exerciseList: Exercise[] = [
     ],
   },
   {
-    id: "incline-machine-press",
-    name: "Incline machine press",
-    imageId: "Leverage_Incline_Chest_Press",
-    equipment: "machine",
-    mechanic: "compound",
-    cues: [
-      "Adjust the seat so the handles line up with your upper chest.",
-      "Press out without slamming your elbows into lockout.",
-      "Let the weight back slowly until you feel a stretch.",
-    ],
-  },
-  {
-    id: "incline-cable-fly",
-    name: "Incline cable fly",
-    imageId: "Incline_Cable_Flye",
+    id: "low-to-high-cable-fly",
+    name: "Low-to-high cable fly",
+    imageId: "Low_Cable_Crossover",
     equipment: "cable",
     mechanic: "isolation",
     cues: [
-      "Put an incline bench between two low cable pulleys.",
+      "Set both pulleys low and take a step forward.",
+      "Sweep your hands up and together to chin height.",
       "Keep a slight, fixed bend in your elbows.",
-      "Bring your hands together above your upper chest.",
     ],
   },
   {
@@ -85,27 +87,15 @@ const exerciseList: Exercise[] = [
     ],
   },
   {
-    id: "dumbbell-bench-press",
-    name: "Dumbbell bench press",
-    imageId: "Dumbbell_Bench_Press",
-    equipment: "dumbbell",
-    mechanic: "compound",
-    cues: [
-      "Lie flat with the dumbbells over your chest.",
-      "Lower until you feel a stretch across your chest.",
-      "Press up, keeping your wrists stacked over your elbows.",
-    ],
-  },
-  {
-    id: "machine-chest-press",
-    name: "Machine chest press",
-    imageId: "Machine_Bench_Press",
+    id: "smith-bench-press",
+    name: "Smith machine bench press",
+    imageId: "Smith_Machine_Bench_Press",
     equipment: "machine",
     mechanic: "compound",
     cues: [
-      "Set the seat so the handles are at mid-chest height.",
-      "Keep your back flat against the pad.",
-      "Control the weight on the way back.",
+      "Set a flat bench so the bar lines up with your mid-chest.",
+      "Lower the bar to mid-chest with elbows at roughly 45°.",
+      "Twist the bar to unrack and re-rack it.",
     ],
   },
   {
@@ -122,7 +112,7 @@ const exerciseList: Exercise[] = [
   },
   {
     id: "chest-dip",
-    name: "Chest dip",
+    name: "Weighted dip",
     imageId: "Dips_-_Chest_Version",
     equipment: "bodyweight",
     mechanic: "compound",
@@ -131,93 +121,10 @@ const exerciseList: Exercise[] = [
       "Lower until you feel a stretch, with elbows flaring slightly.",
       "Add weight with a belt once 10 reps is easy, or use the assisted machine.",
     ],
-  },
-  {
-    id: "decline-barbell-bench-press",
-    name: "Decline barbell bench press",
-    imageId: "Decline_Barbell_Bench_Press",
-    equipment: "barbell",
-    mechanic: "compound",
-    cues: [
-      "Hook your legs securely under the pads.",
-      "Lower the bar to your lower chest.",
-      "Use a spotter, as the bar is harder to rack from a decline.",
-    ],
-  },
-  {
-    id: "decline-dumbbell-press",
-    name: "Decline dumbbell press",
-    imageId: "Decline_Dumbbell_Bench_Press",
-    equipment: "dumbbell",
-    mechanic: "compound",
-    cues: [
-      "Set a slight decline and lock your legs in.",
-      "Lower the dumbbells to the sides of your lower chest.",
-      "Press up in a slight arc.",
-    ],
-  },
-  {
-    id: "cable-crossover",
-    name: "High-to-low cable crossover",
-    imageId: "Cable_Crossover",
-    equipment: "cable",
-    mechanic: "isolation",
-    cues: [
-      "Set both pulleys high and take a step forward.",
-      "Sweep your hands down and together in front of your hips.",
-      "Keep a slight bend in your elbows the whole time.",
-    ],
+     variations: "Add weight with a dip belt. Use the assisted machine if you can't do 6 reps yet.",
   },
 
   // Back
-  {
-    id: "pull-up",
-    name: "Pull-up",
-    imageId: "Pullups",
-    equipment: "bodyweight",
-    mechanic: "compound",
-    cues: [
-      "Grip just wider than your shoulders.",
-      "Drive your elbows down towards your hips until your chin clears the bar.",
-      "Use the assisted machine if you can't do 6, and add weight once 10 is easy.",
-    ],
-  },
-  {
-    id: "wide-grip-lat-pulldown",
-    name: "Wide-grip lat pulldown",
-    imageId: "Wide-Grip_Lat_Pulldown",
-    equipment: "cable",
-    mechanic: "compound",
-    cues: [
-      "Grip the bar wider than your shoulders.",
-      "Pull it to your upper chest while leaning back slightly.",
-      "Let your arms fully straighten at the top to stretch the lats.",
-    ],
-  },
-  {
-    id: "close-grip-pulldown",
-    name: "Close-grip pulldown",
-    imageId: "V-Bar_Pulldown",
-    equipment: "cable",
-    mechanic: "compound",
-    cues: [
-      "Use a V-bar handle with palms facing each other.",
-      "Pull towards your upper chest, keeping elbows close to your sides.",
-      "Control the weight all the way up.",
-    ],
-  },
-  {
-    id: "straight-arm-pulldown",
-    name: "Straight-arm pulldown",
-    imageId: "Straight-Arm_Pulldown",
-    equipment: "cable",
-    mechanic: "isolation",
-    cues: [
-      "Stand facing a high pulley, hinged slightly at the hips.",
-      "Keep your arms almost straight and sweep the bar down to your thighs.",
-      "Feel your lats do the work, not your triceps.",
-    ],
-  },
   {
     id: "barbell-row",
     name: "Barbell row",
@@ -435,6 +342,30 @@ const exerciseList: Exercise[] = [
     ],
   },
   {
+    id: "ez-bar-curl",
+    name: "EZ-bar curl",
+    imageId: "EZ-Bar_Curl",
+    equipment: "ez-bar",
+    mechanic: "isolation",
+    cues: [
+      "Hold the EZ-bar on the angled grips.",
+      "Curl up with your elbows by your sides.",
+      "The angled grip is easier on the wrists than a straight bar.",
+    ],
+  },
+  {
+    id: "dumbbell-curl",
+    name: "Dumbbell curl",
+    imageId: "Dumbbell_Bicep_Curl",
+    equipment: "dumbbell",
+    mechanic: "isolation",
+    cues: [
+      "Stand with a dumbbell in each hand, palms facing forward.",
+      "Curl both up without swinging your body.",
+      "Lower slowly until your arms are straight.",
+    ],
+  },
+  {
     id: "incline-dumbbell-curl",
     name: "Incline dumbbell curl",
     imageId: "Incline_Dumbbell_Curl",
@@ -444,30 +375,6 @@ const exerciseList: Exercise[] = [
       "Lie back on a bench set to about 45°, arms hanging straight down.",
       "Curl up without moving your upper arms forward.",
       "The stretch at the bottom is the point of this exercise.",
-    ],
-  },
-  {
-    id: "drag-curl",
-    name: "Barbell drag curl",
-    imageId: "Drag_Curl",
-    equipment: "barbell",
-    mechanic: "isolation",
-    cues: [
-      "Hold the bar against your thighs.",
-      "Curl it up by dragging it along your body as your elbows move back.",
-      "Lower the same way.",
-    ],
-  },
-  {
-    id: "close-grip-ez-curl",
-    name: "Close-grip EZ-bar curl",
-    imageId: "Close-Grip_EZ_Bar_Curl",
-    equipment: "ez-bar",
-    mechanic: "isolation",
-    cues: [
-      "Grip the inner bends of the EZ-bar.",
-      "Curl up with elbows tucked in.",
-      "A narrower grip puts more work on the long head.",
     ],
   },
   {
@@ -495,42 +402,6 @@ const exerciseList: Exercise[] = [
     ],
   },
   {
-    id: "wide-grip-barbell-curl",
-    name: "Wide-grip barbell curl",
-    imageId: "Wide-Grip_Standing_Barbell_Curl",
-    equipment: "barbell",
-    mechanic: "isolation",
-    cues: [
-      "Grip the bar wider than your shoulders.",
-      "Curl up with elbows by your sides.",
-      "A wider grip shifts more work to the short head.",
-    ],
-  },
-  {
-    id: "spider-curl",
-    name: "Spider curl",
-    imageId: "Spider_Curl",
-    equipment: "ez-bar",
-    mechanic: "isolation",
-    cues: [
-      "Lie chest-down on an incline bench, arms hanging straight.",
-      "Curl the bar up and squeeze hard at the top.",
-      "Lower under control.",
-    ],
-  },
-  {
-    id: "concentration-curl",
-    name: "Concentration curl",
-    imageId: "Concentration_Curls",
-    equipment: "dumbbell",
-    mechanic: "isolation",
-    cues: [
-      "Sit and brace your elbow against your inner thigh.",
-      "Curl the dumbbell towards your shoulder.",
-      "Lower slowly until your arm is straight.",
-    ],
-  },
-  {
     id: "hammer-curl",
     name: "Hammer curl",
     imageId: "Hammer_Curls",
@@ -541,45 +412,35 @@ const exerciseList: Exercise[] = [
       "Curl up, keeping your palms facing in the whole time.",
       "Keep your elbows by your sides.",
     ],
+     variations: "Dumbbells, or a cable with a rope attachment",
   },
   {
-    id: "cross-body-hammer-curl",
-    name: "Cross-body hammer curl",
-    imageId: "Cross_Body_Hammer_Curl",
-    equipment: "dumbbell",
-    mechanic: "isolation",
-    cues: [
-      "Hold the dumbbells with palms facing in.",
-      "Curl one across your body towards the opposite shoulder.",
-      "Alternate arms, lowering slowly each time.",
-    ],
-  },
-  {
-    id: "reverse-barbell-curl",
-    name: "Reverse-grip barbell curl",
+    id: "reverse-curl",
+    name: "Reverse curl",
     imageId: "Reverse_Barbell_Curl",
     equipment: "barbell",
     mechanic: "isolation",
     cues: [
-      "Grip the bar with palms facing down.",
+      "Grip with palms facing down, using a thumbless grip (thumbs on top).",
       "Curl up, keeping your wrists straight.",
       "Use a lighter weight than a normal curl.",
     ],
-  },
-  {
-    id: "rope-hammer-curl",
-    name: "Rope hammer curl",
-    imageId: "Cable_Hammer_Curls_-_Rope_Attachment",
-    equipment: "cable",
-    mechanic: "isolation",
-    cues: [
-      "Attach a rope to a low pulley, palms facing in.",
-      "Curl up while keeping your elbows still.",
-      "Squeeze at the top, then lower slowly.",
-    ],
+    variations: "Cable with cuffs, straight bar or EZ-bar",
   },
 
   // Triceps
+  {
+    id: "single-arm-pushdown",
+    name: "Single-arm cable pushdown",
+    imageId: "Cable_One_Arm_Tricep_Extension",
+    equipment: "cable",
+    mechanic: "isolation",
+    cues: [
+      "Hold a single handle on a high pulley, palm up or palm down.",
+      "Push down until your arm is straight, keeping your elbow at your side.",
+      "Do all reps on one arm, then switch.",
+    ],
+  },
   {
     id: "overhead-cable-extension",
     name: "Overhead cable extension",
@@ -593,54 +454,6 @@ const exerciseList: Exercise[] = [
     ],
   },
   {
-    id: "ez-bar-skullcrusher",
-    name: "EZ-bar skullcrusher",
-    imageId: "EZ-Bar_Skullcrusher",
-    equipment: "ez-bar",
-    mechanic: "isolation",
-    cues: [
-      "Lie on a bench with the bar held above your chest.",
-      "Bend only at the elbows to lower it towards your forehead.",
-      "Extend back up without moving your upper arms.",
-    ],
-  },
-  {
-    id: "overhead-dumbbell-extension",
-    name: "Overhead dumbbell extension",
-    imageId: "Standing_Dumbbell_Triceps_Extension",
-    equipment: "dumbbell",
-    mechanic: "isolation",
-    cues: [
-      "Hold one dumbbell overhead with both hands.",
-      "Lower it behind your head until you feel a stretch.",
-      "Extend back up, keeping your elbows pointing forward.",
-    ],
-  },
-  {
-    id: "lying-dumbbell-extension",
-    name: "Lying dumbbell extension",
-    imageId: "Lying_Dumbbell_Tricep_Extension",
-    equipment: "dumbbell",
-    mechanic: "isolation",
-    cues: [
-      "Lie on a bench with the dumbbells above your chest, palms facing in.",
-      "Bend at the elbows to lower them beside your head.",
-      "Extend back up.",
-    ],
-  },
-  {
-    id: "close-grip-bench-press",
-    name: "Close-grip bench press",
-    imageId: "Close-Grip_Barbell_Bench_Press",
-    equipment: "barbell",
-    mechanic: "compound",
-    cues: [
-      "Grip the bar at shoulder width.",
-      "Lower it to your lower chest with elbows tucked in.",
-      "Press up by straightening your arms.",
-    ],
-  },
-  {
     id: "triceps-dip",
     name: "Triceps dip",
     imageId: "Dips_-_Triceps_Version",
@@ -651,10 +464,11 @@ const exerciseList: Exercise[] = [
       "Lower until your elbows are at about 90°.",
       "Use the assisted machine if needed, or add weight once 10 is easy.",
     ],
+     variations: "Add weight with a dip belt once 10 reps is easy.",
   },
   {
     id: "rope-pushdown",
-    name: "Rope pushdown",
+    name: "Triceps pushdown",
     imageId: "Triceps_Pushdown_-_Rope_Attachment",
     equipment: "cable",
     mechanic: "isolation",
@@ -663,17 +477,18 @@ const exerciseList: Exercise[] = [
       "Push down and split the rope apart at the bottom.",
       "Keep your elbows pinned to your sides.",
     ],
+     variations: "Rope or straight bar",
   },
   {
-    id: "bar-pushdown",
-    name: "Straight-bar pushdown",
-    imageId: "Triceps_Pushdown",
-    equipment: "cable",
-    mechanic: "isolation",
+    id: "jm-press",
+    name: "JM press",
+    imageId: "JM_Press",
+    equipment: "barbell",
+    mechanic: "compound",
     cues: [
-      "Attach a straight bar to a high pulley.",
-      "Push down until your arms are straight.",
-      "Let it back up slowly without your elbows drifting forward.",
+      "Lie on a bench holding the bar with a shoulder-width grip.",
+      "Lower the bar towards your chin by bending your elbows, letting them drift forward.",
+      "Press back up. It's a mix of a close-grip bench press and a skullcrusher.",
     ],
   },
 
@@ -903,32 +718,6 @@ const exerciseList: Exercise[] = [
     altReps: HIGH_REPS,
   },
   {
-    id: "decline-crunch",
-    name: "Decline crunch",
-    imageId: "Decline_Crunch",
-    equipment: "bodyweight",
-    mechanic: "isolation",
-    cues: [
-      "Lock your feet in on a decline bench.",
-      "Curl your upper body up towards your knees.",
-      "Hold a plate on your chest once bodyweight gets easy.",
-    ],
-    altReps: HIGH_REPS,
-  },
-  {
-    id: "crunch",
-    name: "Crunch",
-    imageId: "Crunches",
-    equipment: "bodyweight",
-    mechanic: "isolation",
-    cues: [
-      "Lie on your back with your knees bent.",
-      "Curl your shoulders off the floor towards your hips.",
-      "Lower slowly without pulling on your neck.",
-    ],
-    altReps: HIGH_REPS,
-  },
-  {
     id: "hanging-leg-raise",
     name: "Hanging leg raise",
     imageId: "Hanging_Leg_Raise",
@@ -964,19 +753,6 @@ const exerciseList: Exercise[] = [
       "Lie on your back with your knees bent at 90°.",
       "Roll your hips off the floor towards your chest.",
       "Lower slowly; avoid using momentum.",
-    ],
-    altReps: HIGH_REPS,
-  },
-  {
-    id: "lying-leg-raise",
-    name: "Lying leg raise",
-    imageId: "Flat_Bench_Lying_Leg_Raise",
-    equipment: "bodyweight",
-    mechanic: "isolation",
-    cues: [
-      "Lie on a bench, holding the edge behind your head.",
-      "Raise your legs until they're vertical.",
-      "Lower slowly, keeping your lower back pressed down.",
     ],
     altReps: HIGH_REPS,
   },
@@ -1032,47 +808,8 @@ const exerciseList: Exercise[] = [
     ],
     altReps: HIGH_REPS,
   },
-  {
-    id: "barbell-rollout",
-    name: "Kneeling barbell rollout",
-    imageId: "Barbell_Ab_Rollout_-_On_Knees",
-    equipment: "barbell",
-    mechanic: "compound",
-    cues: [
-      "Kneel holding a loaded barbell (round plates) or an ab wheel.",
-      "Roll forward as far as you can without your lower back sagging.",
-      "Pull back in using your abs.",
-    ],
-    altReps: HIGH_REPS,
-  },
 
   // Forearms
-  {
-    id: "barbell-wrist-curl",
-    name: "Barbell wrist curl",
-    imageId: "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench",
-    equipment: "barbell",
-    mechanic: "isolation",
-    cues: [
-      "Kneel beside a bench with your forearms on it, palms up.",
-      "Let the bar roll to your fingertips, then curl it back up with your wrists.",
-      "Keep your forearms flat on the bench.",
-    ],
-    altReps: HIGH_REPS,
-  },
-  {
-    id: "dumbbell-wrist-curl",
-    name: "Seated dumbbell wrist curl",
-    imageId: "Seated_Dumbbell_Palms-Up_Wrist_Curl",
-    equipment: "dumbbell",
-    mechanic: "isolation",
-    cues: [
-      "Sit with your forearms on your thighs, palms up.",
-      "Curl the dumbbells up using only your wrists.",
-      "Lower all the way down.",
-    ],
-    altReps: HIGH_REPS,
-  },
   {
     id: "cable-wrist-curl",
     name: "Cable wrist curl",
@@ -1085,58 +822,21 @@ const exerciseList: Exercise[] = [
       "Curl the bar up with your wrists, then lower slowly.",
     ],
     altReps: HIGH_REPS,
-  },
-  {
-    id: "behind-back-wrist-curl",
-    name: "Behind-the-back wrist curl",
-    imageId: "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl",
-    equipment: "barbell",
-    mechanic: "isolation",
-    cues: [
-      "Hold a barbell behind your back, palms facing away from you.",
-      "Curl the bar up towards your forearms using your wrists.",
-      "Lower slowly.",
-    ],
-    altReps: HIGH_REPS,
+     variations: "Cable with a straight bar",
   },
   {
     id: "reverse-wrist-curl",
-    name: "Reverse barbell wrist curl",
+    name: "Reverse wrist curl",
     imageId: "Palms-Down_Wrist_Curl_Over_A_Bench",
-    equipment: "barbell",
+    equipment: "cable",
     mechanic: "isolation",
     cues: [
-      "Rest your forearms on a bench, palms facing down.",
+      "Rest your forearms on a bench or your thighs, palms facing down.",
       "Lift the back of your hands up towards you.",
       "Use a light weight; this muscle is small.",
     ],
     altReps: HIGH_REPS,
-  },
-  {
-    id: "dumbbell-reverse-wrist-curl",
-    name: "Reverse dumbbell wrist curl",
-    imageId: "Palms-Down_Dumbbell_Wrist_Curl_Over_A_Bench",
-    equipment: "dumbbell",
-    mechanic: "isolation",
-    cues: [
-      "Rest your forearms on a bench, palms down.",
-      "Raise the dumbbells by bending your wrists back.",
-      "Lower slowly.",
-    ],
-    altReps: HIGH_REPS,
-  },
-  {
-    id: "wrist-roller",
-    name: "Wrist roller",
-    imageId: "Wrist_Roller",
-    equipment: "bodyweight",
-    mechanic: "isolation",
-    cues: [
-      "Hold the roller at shoulder height with arms straight out.",
-      "Roll the weight up by twisting your wrists, then roll it back down slowly.",
-      "One full roll up and down counts as one rep.",
-    ],
-    altReps: HIGH_REPS,
+    variations: "Cable with a straight bar (shown here with a barbell)",
   },
 
   // Lower back

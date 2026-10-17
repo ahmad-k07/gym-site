@@ -28,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                   <Link href="/">Train</Link>
                 </li>
                 <li>
-                  <Link href="/learn">Learn</Link>
+                  <Link href="/splits">Splits</Link>
                 </li>
               </ul>
             </nav>

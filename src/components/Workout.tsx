@@ -1,39 +1,47 @@
 import { exercises } from "@/data/exercises";
-import type { Region } from "@/data/muscles";
+import type { MuscleGroup, Region } from "@/data/muscles";
 import { BackLink } from "./BackLink";
 import { ExerciseCard } from "./ExerciseCard";
 import { Prescription } from "./Prescription";
+import { Tip } from "./Tip";
+import { WarmUp } from "./WarmUp";
 import styles from "./Workout.module.css";
 
-/** The results page body: heading, the sets/reps/rest summary, then the exercises in order. */
+/** The results page body: heading, tip, sets/reps/rest summary, warm-up moves, then the exercises. */
 export function Workout({
+  group,
   region,
   backHref,
   backLabel,
 }: {
+  group: MuscleGroup;
   region: Region;
   backHref: string;
   backLabel: string;
 }) {
+  // A group with one section (e.g. Biceps) is titled by the group, not the section.
+  const title = group.regions.length === 1 ? group.name : region.name;
+  const count = region.exerciseIds.length;
+
   return (
     <>
       <BackLink href={backHref} label={backLabel} />
-      <h1>{region.name}</h1>
+      <h1>{title}</h1>
       <p className="lead">{region.blurb}</p>
+      {group.tip && <Tip>{group.tip}</Tip>}
 
       <Prescription />
 
-      <h2>Exercises</h2>
-      <p className={styles.hint}>
-        Do them in this order: the heavier compound movements come first, while you&apos;re fresh.
-      </p>
-      <ol className={styles.list}>
+      <WarmUp moves={region.warmUp ?? group.warmUp} />
+
+      <h2>{region.pick ? `Pick ${region.pick} of these ${count} exercises` : "Exercises"}</h2>
+      <ul className={styles.list}>
         {region.exerciseIds.map((id, i) => (
           <li key={id}>
-            <ExerciseCard exercise={exercises[id]} number={i + 1} priority={i === 0} />
+            <ExerciseCard exercise={exercises[id]} priority={i === 0} />
           </li>
         ))}
-      </ol>
+      </ul>
     </>
   );
 }

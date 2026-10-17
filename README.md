@@ -8,7 +8,9 @@ A simple, calm website that tells you what to do in the gym. Search for a muscle
 
 1. Search for a muscle group (e.g. "chest", or a synonym like "pecs").
 2. Pick a sub-region (e.g. upper, middle, lower or whole chest). Groups with no sub-regions skip this step.
-3. See 4 exercises, ordered from compound to isolation, each with an animated demo (start and end photos swapping) and form cues.
+3. See a short warm-up routine, then the exercises to choose from, each with an animated demo (start and end photos swapping), form cues and variations.
+
+The Splits page asks how many days a week you can train (2–6) and suggests splits: full body for 2–3 days, upper/lower or anterior/posterior for 4, push/pull/legs + upper/lower for 5, and upper/lower, anterior/posterior or push/pull/legs twice for 6. Seven days isn't offered because it's excessive and risky.
 
 ## Training prescription
 
@@ -23,23 +25,18 @@ Every exercise uses the same structure:
 
 Equipment assumes a full gym.
 
-## Muscle groups (v1)
+## Muscle groups
 
-| Group | Sub-regions |
+| Group | Sections |
 |---|---|
-| Chest | Upper · Middle · Lower · Whole |
-| Back | Lats (width) · Upper/mid back (thickness) · Whole |
-| Shoulders | Front · Side · Rear · Whole |
-| Biceps | Long head · Short head · Brachialis · Whole |
-| Triceps | Long head · Lateral/medial heads · Whole |
-| Legs | Quads · Hamstrings · Glutes · Calves · Whole |
-| Abs | Upper · Lower · Obliques · Whole |
-| Forearms | Flexors · Extensors · Whole |
-| Lower back | (none) |
-
-## Learn section
-
-Short on-site explanations (a few sentences each, no external links) of progressive overload, hypertrophy, calorie deficits, cutting and bulking.
+| Chest | Upper · Whole |
+| Back | Upper and mid back · Lower back |
+| Shoulders | Front · Side · Rear |
+| Biceps | Curls (pick one) |
+| Triceps | One section: all movements hit all three heads |
+| Legs | Quads · Hamstrings · Glutes · Calves |
+| Abs | Abs · Obliques |
+| Forearms | Hammer curls, reverse curls, cable wrist curls |
 
 ## Running it
 
@@ -63,15 +60,15 @@ Then open http://localhost:3000. `npm run build` makes a production build, and `
 ```
 src/
   app/                    pages (each folder is a URL)
-    page.tsx              home: search, muscle groups, learn teasers
+    page.tsx              home: search, muscle groups, link to splits
     train/[group]/        region picker, e.g. /train/chest
     train/[group]/[region]/  workout, e.g. /train/chest/upper
-    learn/                learn page
+    splits/               split finder
   components/             reusable UI pieces (search box, exercise card…)
   data/
-    muscles.ts            groups, regions, synonyms, which exercises go where
+    muscles.ts            groups, sections, tips, warm-ups, synonyms, which exercises go where
     exercises.ts          exercise details and form cues
-    learn.ts              learn section text
+    splits.ts             training splits for 2–6 days a week
   lib/
     search.ts             search scoring
     prescription.ts       warm-up / sets / reps / rest text
@@ -83,8 +80,8 @@ To change which exercises appear for a muscle, edit `exerciseIds` in `src/data/m
 
 - [x] HTML/CSS prototype (in git history)
 - [x] Next.js + TypeScript app
-- [x] Exercise data for 9 muscle groups (31 workouts, 93 exercises)
-- [x] Search with synonyms, region picker, workout pages, learn page
+- [x] Exercise data for 8 muscle groups (68 exercises)
+- [x] Search with synonyms, section picker, workout pages with warm-ups, split finder
 - [x] Responsive layout, dark mode, keyboard-accessible search
 - [ ] Deploy to Vercel
 - [ ] Optional: custom domain

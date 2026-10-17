@@ -13,7 +13,7 @@ You run `npm run build`
 Next.js reads src/data/*.ts and runs every page once
         │
         ▼
-56 finished HTML pages (/, /learn, /train/chest, /train/chest/upper, …)
+39 finished HTML pages (/, /splits, /train/chest, /train/chest/upper, …)
         │
         ▼
 Vercel serves those files to anyone who visits
@@ -49,7 +49,7 @@ export function BackLink({ href, label }: { href: string; label: string }) {
 ```tsx
 {region.exerciseIds.map((id, i) => (
   <li key={id}>
-    <ExerciseCard exercise={exercises[id]} number={i + 1} />
+    <ExerciseCard exercise={exercises[id]} priority={i === 0} />
   </li>
 ))}
 ```
@@ -71,7 +71,7 @@ export type Exercise = {
 };
 ```
 
-Every one of the 93 exercises must match this shape. If you typo `equipment: "dumbell"`, the editor underlines it in red before you even run the code. With 93 hand-written entries, mistakes like that are guaranteed, and TypeScript catches them all.
+Every one of the 68 exercises must match this shape. If you typo `equipment: "dumbell"`, the editor underlines it in red before you even run the code. With 68 hand-written entries, mistakes like that are guaranteed, and TypeScript catches them all.
 
 `Record<string, Exercise>` (at the bottom of the file) is a **dictionary/hash map**: look up an exercise by ID in O(1) time, e.g. `exercises["pull-up"]`.
 
@@ -83,7 +83,7 @@ This is the most important design decision in the project:
 |---|---|
 | muscles, regions, synonyms | layout, cards, grids |
 | exercises and cues | styling |
-| learn text | interaction |
+| splits and warm-ups | interaction |
 
 To change which exercises appear for upper chest, you edit one array in [muscles.ts](../src/data/muscles.ts) and touch no UI code. To redesign the exercise card, you change no data. Each half can change without breaking the other. It's also exactly what will make adding a database easy later, because only the place the data comes from changes.
 
@@ -93,7 +93,7 @@ Next.js uses **file-based routing**. The folder structure *is* the URL structure
 
 ```
 src/app/page.tsx                        →  /
-src/app/learn/page.tsx                  →  /learn
+src/app/splits/page.tsx                 →  /splits
 src/app/train/[group]/page.tsx          →  /train/chest, /train/back, …
 src/app/train/[group]/[region]/page.tsx →  /train/chest/upper, …
 ```
@@ -117,7 +117,7 @@ This is the concept that confuses most people new to Next.js.
 - **Server components** (the default) run at build time on the server. Their output is plain HTML, and **none of their JavaScript is sent to the browser**. Almost every file in this project is one.
 - **Client components** start with `"use client"` and *also* run in the browser, so they can respond to clicks and typing.
 
-Only **one** file here needs to be a client component: [MuscleSearch.tsx](../src/components/MuscleSearch.tsx), because it reacts as you type. Everything else is static content. The rule of thumb is to use client components only where you need interactivity, because less JavaScript sent to the browser means faster pages.
+Only **two** files here need to be client components: [MuscleSearch.tsx](../src/components/MuscleSearch.tsx), because it reacts as you type, and [SplitFinder.tsx](../src/components/SplitFinder.tsx), because it reacts when you pick a number of days. Everything else is static content. The rule of thumb is to use client components only where you need interactivity, because less JavaScript sent to the browser means faster pages.
 
 ## 7. State: how the search box remembers things
 
@@ -160,7 +160,7 @@ That's O(n × t) per keystroke for n entries with t terms each. With about 40 en
 
 ## 10. Accessibility
 
-- **Semantic HTML:** `<header>`, `<main>`, `<nav>`, `<ol>` for the ordered exercise list, and `<dl>` (description list) for warm-up/sets/reps/rest.
+- **Semantic HTML:** `<header>`, `<main>`, `<nav>`, `<ol>` for the warm-up steps, and `<dl>` (description list) for warm-up/sets/reps/rest.
 - **The search box is an ARIA combobox:** `role="combobox"`, `aria-expanded` and `aria-activedescendant` let a screen reader announce "Upper chest, 1 of 3" as you arrow through suggestions.
 - **Alt text** on every image describes the position ("Pull-up: start position").
 - **`:focus-visible`** shows an outline for keyboard users.
@@ -194,7 +194,7 @@ These exercises go from easiest to hardest. Run `npm run dev`, and the browser u
 
 1. **Add a synonym:** make "boulders" find Shoulders. *(muscles.ts, one word.)*
 2. **Change the accent colour** in `globals.css` for both light and dark mode.
-3. **Swap an exercise:** in `muscles.ts`, replace `"crunch"` in the Upper abs list with `"pallof-press"` and watch the page change. Then change it back.
+3. **Swap an exercise:** in `muscles.ts`, replace `"reverse-crunch"` in the Abs list with `"pallof-press"` and watch the page change. Then change it back.
 4. **Add a brand-new exercise:** pick one from [free-exercise-db](https://github.com/yuhonas/free-exercise-db/tree/main/exercises), copy its `0.jpg` and `1.jpg` into `public/exercises/<Its_Id>/`, add an entry to `exercises.ts`, and reference its ID in `muscles.ts`. TypeScript will tell you if you've missed a field.
 5. **Add a feature:** show the number of working sets as small dots (●●○) on each card. You'll need a new component and some CSS.
 

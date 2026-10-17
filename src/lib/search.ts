@@ -12,21 +12,20 @@ function normalise(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
 }
 
-// Built once: every muscle group, plus every specific region ("whole" regions are reached via the group).
+// Built once: every muscle group, plus each of its sections when it has more than one.
 const index: SearchResult[] = muscleGroups.flatMap((group) => {
   const groupEntry: SearchResult = {
     label: group.name,
     href: `/train/${group.slug}`,
     terms: [group.name, ...group.synonyms].map(normalise),
   };
-  const regionEntries = group.regions
-    .filter((region) => region.slug !== "whole" && group.regions.length > 1)
-    .map((region) => ({
-      label: region.name,
-      context: group.name,
-      href: `/train/${group.slug}/${region.slug}`,
-      terms: [region.name, `${group.name} ${region.name}`, ...region.synonyms].map(normalise),
-    }));
+  if (group.regions.length === 1) return [groupEntry];
+  const regionEntries = group.regions.map((region) => ({
+    label: region.name,
+    context: group.name,
+    href: `/train/${group.slug}/${region.slug}`,
+    terms: [region.name, `${group.name} ${region.name}`, ...region.synonyms].map(normalise),
+  }));
   return [groupEntry, ...regionEntries];
 });
 
