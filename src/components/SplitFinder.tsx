@@ -99,7 +99,7 @@ function SplitCard({ split }: { split: Split }) {
           </li>
         ))}
       </ol>
-      <p className={styles.hint}>Hover or tap a day to see what to train.</p>
+      <p className={styles.hint}>Hover or tap a day to see what to train, and in what order.</p>
     </article>
   );
 }
@@ -145,16 +145,20 @@ function TrainingDay({
       {open && (
         <div id={popoverId} className={`${styles.popover} ${align}`} role="dialog" aria-label={day.name}>
           <p className={styles.popoverTitle}>{day.name}</p>
-          <ul className={styles.targets}>
-            {day.targets.map((target) => (
+          <p className={styles.popoverHint}>Train in this order:</p>
+          <ol className={styles.targets}>
+            {day.targets.map((target, i) => (
               <li key={target.href}>
                 <Link href={target.href} className={styles.target}>
-                  {target.label}
-                  <span aria-hidden="true">→</span>
+                  <span className={styles.step}>{i + 1}</span>
+                  <span className={styles.targetLabel}>{target.label}</span>
+                  <span className={styles.arrow} aria-hidden="true">
+                    →
+                  </span>
                 </Link>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       )}
     </div>

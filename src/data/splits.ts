@@ -4,6 +4,7 @@ export type DayTemplate = {
   name: string;
   /** Fits in the weekly calendar strip on a phone. */
   short: string;
+  /** Muscles in the order to train them: bigger muscles and heavier lifts first. */
   targets: Target[];
 };
 
@@ -35,12 +36,12 @@ const abs = { label: "Abs", href: "/train/abs" };
 const fullBody: DayTemplate = {
   name: "Full body",
   short: "Full",
-  targets: [chest, back, shoulders, quads, hamstrings, biceps, triceps, abs],
+  targets: [quads, hamstrings, chest, back, shoulders, biceps, triceps, abs],
 };
 const upper: DayTemplate = {
   name: "Upper",
   short: "Upper",
-  targets: [chest, back, shoulders, biceps, triceps, forearms],
+  targets: [chest, back, shoulders, triceps, biceps, forearms],
 };
 const lower: DayTemplate = {
   name: "Lower",
@@ -50,17 +51,17 @@ const lower: DayTemplate = {
 const anterior: DayTemplate = {
   name: "Anterior (front)",
   short: "Front",
-  targets: [chest, frontDelts, sideDelts, biceps, quads, abs],
+  targets: [chest, frontDelts, sideDelts, quads, biceps, abs],
 };
 const posterior: DayTemplate = {
   name: "Posterior (back)",
   short: "Back",
-  targets: [back, lowerBack, rearDelts, triceps, hamstrings, glutes, calves],
+  targets: [back, lowerBack, hamstrings, glutes, calves, rearDelts, triceps],
 };
 const push: DayTemplate = {
   name: "Push",
   short: "Push",
-  targets: [chest, frontDelts, sideDelts, triceps],
+  targets: [chest, triceps, frontDelts, sideDelts],
 };
 const pull: DayTemplate = {
   name: "Pull",
@@ -81,7 +82,7 @@ const chestBack: DayTemplate = {
 const shouldersArms: DayTemplate = {
   name: "Shoulders and arms",
   short: "Delts + arms",
-  targets: [shoulders, biceps, triceps, forearms],
+  targets: [shoulders, triceps, biceps, forearms],
 };
 
 const upperLower4: Split = {
